@@ -10,7 +10,6 @@ class mapGenerator{
         mapGenerator();
 
         void Update();
-        void drawGrid(int rows, int cols);
         void LateUpdate();
         void Draw();
 

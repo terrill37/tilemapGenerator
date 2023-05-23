@@ -12,10 +12,16 @@ class Window{
         }
 
         float lastX=0,lastY=0;
+        
+        sf::View view=window.getDefaultView();
 
         void Update();
         void setView();
+        void setView(sf::View);
+        sf::View getDefaultView();
         sf::Vector2f getViewSize();
+        sf::View Move(char, sf::View);
+        void drawGrid(int, int);
         void HighlightBin();
         void BeginDraw();
         void Draw(const sf::Drawable& drawable);
