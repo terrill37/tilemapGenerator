@@ -40,13 +40,12 @@ void mapGenerator::drawGrid(int rows, int cols){
     window.Draw(grid);
 }
 
-void mapGenerator::LateUpdate(){
-    //drawGrid(10,10);
-}
+void mapGenerator::LateUpdate(){}
 
 void mapGenerator::Draw(){
     window.BeginDraw();
     drawGrid(16,32);
+    window.HighlightBin();
     //sf::View view(player.
     //window.setView(view);
     window.EndDraw();
