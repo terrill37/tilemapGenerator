@@ -11,9 +11,12 @@ class Window{
             window.setVerticalSyncEnabled(true);
         }
 
+        float lastX=0,lastY=0;
+
         void Update();
         void setView();
         sf::Vector2f getViewSize();
+        void HighlightBin();
         void BeginDraw();
         void Draw(const sf::Drawable& drawable);
         void EndDraw();
