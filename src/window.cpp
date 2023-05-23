@@ -29,7 +29,6 @@ void Window::Update(){
             lastX=mousePos.x/32;
             lastY=mousePos.y/32;
             std::cout<<lastX<<","<<lastY<<std::endl;
-
         }   
     }
 }

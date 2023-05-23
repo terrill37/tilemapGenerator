@@ -9,19 +9,17 @@ void mapGenerator::Update(){
 }
 
 void mapGenerator::LateUpdate(){
-    //window.drawGrid(16,32);
 }
 
 void mapGenerator::Draw(){
     window.BeginDraw();
-    //window.setView();
     
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Red);
     window.Draw(shape);
     window.drawGrid(16,32);
     window.HighlightBin();
-    //window.setView(window.view);
+
     window.EndDraw();
 }
 
