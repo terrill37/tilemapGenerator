@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16.3 FATAL_ERROR)
 
 #set project name and version
-project(sfml_example VERSION 1.0)
+project(tileMapGenerator VERSION 1.0)
 
 #set c++ standard
 set(CMAKE_CXX_STANDARD 11)
@@ -28,31 +28,30 @@ find_package(SFML 2.5
 
 #compile executable
 #set(SOURCES
-add_executable(sfml_example main.cpp)
-                          #${CMAKE_CURRENT_LIST_DIR}/src/Game.cpp 
-                          #${CMAKE_CURRENT_LIST_DIR}/src/window.cpp
+add_executable(tileMapGenerator ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
+                                ${CMAKE_CURRENT_LIST_DIR}/src/mapGenerator.cpp 
+                                ${CMAKE_CURRENT_LIST_DIR}/src/window.cpp)
 						  #${CMAKE_CURRENT_LIST_DIR}/src/gameMap.cpp
                           #${CMAKE_CURRENT_LIST_DIR}/src/player.cpp)
 #                           ${CMAKE_CURRENT_LIST_DIR}/src/Game.cpp)
 
-#target_include_directories(gameEngine PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include)
+#target_include_directories(tileMapGenerator PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include)
 
 message(STATUS "install prefix: ${CMAKE_INSTALL_PREFIX}")
 
-
 #set include directory search paths 
-target_include_directories(sfml_example
+target_include_directories(tileMapGenerator
                            PUBLIC
-                               "${PROJECT_BINARY_DIR}")
-#                               "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+                               "${PROJECT_BINARY_DIR}"
+                               "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
 message(STATUS "current_source_dir: ${CMAKE_CURRENT_SOURCE_DIR}")
 message(STATUS "project_binary_dir: ${PROJECT_BINARY_DIR}")
 message(sfml_example)
 
-target_link_libraries(sfml_example PUBLIC sfml-graphics)
-get_target_property(OUT sfml_example LINK_LIBRARIES)
+target_link_libraries(tileMapGenerator PUBLIC sfml-graphics)
+get_target_property(OUT tileMapGenerator LINK_LIBRARIES)
 message(STATUS ${OUT})
 
-install(TARGETS sfml_example DESTINATION bin)
+install(TARGETS tileMapGenerator DESTINATION bin)
 
