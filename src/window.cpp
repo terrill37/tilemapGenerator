@@ -35,13 +35,13 @@ void Window::Update(){
 }
 
 void Window::setView(){
-    std::cout<<"set view default"<<std::endl;
+    //std::cout<<"set view default"<<std::endl;
     window.setView(window.getDefaultView());
 }
 
 void Window::setView(sf::View v){
     //std::cout<<v.getCenter().x<<","<<v.getCenter().y<<std::endl;
-    std::cout<<"set view custom\n";
+    //std::cout<<"set view custom\n";
     window.setView(v);
 }
 
@@ -51,11 +51,11 @@ sf::Vector2f Window::getViewSize(){
 
 void Window::drawGrid(int rows, int cols){
     //std::cout<<"in draw grid\n";
-    sf::Vector2f center=view.getCenter();
-    std::cout<<"view: "<<center.x<<","<<center.y<<std::endl;
+    //sf::Vector2f center=view.getCenter();
+    //std::cout<<"view: "<<center.x<<","<<center.y<<std::endl;
     sf::View origin=view;//.move(-512,-256);
     origin.move(-512,-256);
-    std::cout<<"origin: "<<origin.getCenter().x<<","<<origin.getCenter().y<<std::endl;
+    //std::cout<<"origin: "<<origin.getCenter().x<<","<<origin.getCenter().y<<std::endl;
     int numLines = rows+cols-2;
     sf::VertexArray grid(sf::Lines, 2*(numLines));
     
@@ -87,7 +87,7 @@ void Window::drawGrid(int rows, int cols){
 }
 
 sf::View Window::Move(char dir, sf::View view){
-    std::cout<<"moving "<<dir<<std::endl;
+    //std::cout<<"moving "<<dir<<std::endl;
     //sf::View view=window.getDefaultView();
     
     view=window.getView();
@@ -105,15 +105,17 @@ sf::View Window::getDefaultView(){
 }
 
 void Window::HighlightBin(){
+    sf::View origin=view;
+    origin.move(-512,-256);
     //Highlight square in grid base on input positions of map
     int xpos=lastX;
     int ypos=lastY;
     sf::VertexArray square(sf::LineStrip, 5);
-    square[0].position=sf::Vector2f(32*xpos,32*ypos);
-    square[1].position=sf::Vector2f(32*xpos+32,32*ypos);
-    square[2].position=sf::Vector2f(32*xpos+32,32*ypos+32);
-    square[3].position=sf::Vector2f(32*xpos,32*ypos+32);
-    square[4].position=sf::Vector2f(32*xpos,32*ypos);
+    square[0].position=sf::Vector2f(32*xpos+origin.getCenter().x,32*ypos+origin.getCenter().y);
+    square[1].position=sf::Vector2f(32*xpos+32+origin.getCenter().x,32*ypos+origin.getCenter().y);
+    square[2].position=sf::Vector2f(32*xpos+32+origin.getCenter().x,32*ypos+32+origin.getCenter().y);
+    square[3].position=sf::Vector2f(32*xpos+origin.getCenter().x,32*ypos+32+origin.getCenter().y);
+    square[4].position=sf::Vector2f(32*xpos+origin.getCenter().x,32*ypos+origin.getCenter().y);
     square[0].color=sf::Color::Green;
     square[1].color=sf::Color::Green;
     square[2].color=sf::Color::Green;
@@ -125,8 +127,6 @@ void Window::HighlightBin(){
 
 void Window::BeginDraw(){
     window.clear(sf::Color::White);
-    //setView(view);
-    std::cout<<"begin draw: "<<view.getCenter().x<<","<<view.getCenter().y<<std::endl;
 }
 
 void Window::Draw(const sf::Drawable& drawable){
