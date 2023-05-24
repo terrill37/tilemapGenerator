@@ -13,6 +13,7 @@ void Window::Update(){
             if(event.key.code==sf::Keyboard::Escape)
                 window.close();
             
+            std::cout<<"view event: "<<view.getCenter().x<<","<<view.getCenter().y<<std::endl;
             if(event.key.code==sf::Keyboard::Left)
                 view=Move('L',view);
             if(event.key.code==sf::Keyboard::Right)
@@ -34,11 +35,13 @@ void Window::Update(){
 }
 
 void Window::setView(){
+    std::cout<<"set view default"<<std::endl;
     window.setView(window.getDefaultView());
 }
 
 void Window::setView(sf::View v){
     //std::cout<<v.getCenter().x<<","<<v.getCenter().y<<std::endl;
+    std::cout<<"set view custom\n";
     window.setView(v);
 }
 
@@ -48,6 +51,11 @@ sf::Vector2f Window::getViewSize(){
 
 void Window::drawGrid(int rows, int cols){
     //std::cout<<"in draw grid\n";
+    sf::Vector2f center=view.getCenter();
+    std::cout<<"view: "<<center.x<<","<<center.y<<std::endl;
+    sf::View origin=view;//.move(-512,-256);
+    origin.move(-512,-256);
+    std::cout<<"origin: "<<origin.getCenter().x<<","<<origin.getCenter().y<<std::endl;
     int numLines = rows+cols-2;
     sf::VertexArray grid(sf::Lines, 2*(numLines));
     
@@ -60,18 +68,18 @@ void Window::drawGrid(int rows, int cols){
     for(int i=0; i<rows-1; i++){
         int r=i+1;
         float rowY=rowH*r;
-        grid[i*2].position={0, rowY};
+        grid[i*2].position={origin.getCenter().x, rowY+origin.getCenter().y};
         grid[i*2].color=sf::Color::Black;
-        grid[i*2+1].position={size.x, rowY};
+        grid[i*2+1].position={size.x+origin.getCenter().x, rowY+origin.getCenter().y};
         grid[i*2+1].color=sf::Color::Black;
     }
 
     for(int i=rows-1; i<numLines; i++){
         int c=i-rows+2;
         float colX=colW*c;
-        grid[i*2].position={colX,0};
+        grid[i*2].position={colX+origin.getCenter().x,origin.getCenter().y};
         grid[i*2].color=sf::Color::Black;
-        grid[i*2+1].position={colX, size.y};
+        grid[i*2+1].position={colX+origin.getCenter().x, size.y+origin.getCenter().y};
         grid[i*2+1].color=sf::Color::Black;
         //std::cout<<"{"<<colX<<","<<size.y<<"}\n";
     }
@@ -86,8 +94,8 @@ sf::View Window::Move(char dir, sf::View view){
 
     if(dir=='L') view.move(32,0);
     if(dir=='R') view.move(-32,0);
-    if(dir=='U') view.move(0,-32);
-    if(dir=='D') view.move(0,32);
+    if(dir=='U') view.move(0,32);
+    if(dir=='D') view.move(0,-32);
     
     return view;
 }
@@ -117,6 +125,8 @@ void Window::HighlightBin(){
 
 void Window::BeginDraw(){
     window.clear(sf::Color::White);
+    //setView(view);
+    std::cout<<"begin draw: "<<view.getCenter().x<<","<<view.getCenter().y<<std::endl;
 }
 
 void Window::Draw(const sf::Drawable& drawable){

@@ -12,8 +12,6 @@ class Window{
         }
 
         float lastX=0,lastY=0;
-        
-        sf::View view=window.getDefaultView();
 
         void Update();
         void setView();
@@ -30,6 +28,7 @@ class Window{
 
     private:
         sf::RenderWindow window;
+        sf::View view=window.getDefaultView();
 
 };
 #endif
