@@ -22,11 +22,11 @@ void mapGenerator::Draw(){
     shape.setFillColor(sf::Color::Red);
     window.Draw(shape);
     window.drawGrid(16,32);
-    window.HighlightBin();
+    window.HighlightBin(32);
     
-    window.setViewPort_lower(sf::FloatRect(0.f,16/18.f,1.f,1.f));
+    window.setViewPort_lower(sf::FloatRect(0.f,512/576.f,1.f,1.f));
     window.setView_lower();
-    sf::RectangleShape rectangle1(sf::Vector2f(64,64));
+    sf::RectangleShape rectangle1(sf::Vector2f(32,32));
     rectangle1.setPosition(0,0);
     rectangle1.setFillColor(sf::Color::Green);
     sf::RectangleShape rectangle2(sf::Vector2f(64,64));
@@ -91,6 +91,8 @@ void mapGenerator::Draw(){
     window.Draw(rectangle14);
     window.Draw(rectangle15);
     window.Draw(rectangle16);
+    
+    window.HighlightBin(64);
 
     window.EndDraw();
 }

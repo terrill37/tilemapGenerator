@@ -11,7 +11,8 @@ class Window{
             window.setVerticalSyncEnabled(true);
         }
 
-        float lastX=0,lastY=0;
+        float upX=0,upY=0;
+        float lowX=0,lowY=0;
 
         void Update();
         void setView_upper();
@@ -26,7 +27,7 @@ class Window{
         sf::Vector2f getViewSize();
         sf::View Move(char, sf::View);
         void drawGrid(int, int);
-        void HighlightBin();
+        void HighlightBin(int);
         void BeginDraw();
         void Draw(const sf::Drawable& drawable);
         void EndDraw();
@@ -38,7 +39,7 @@ class Window{
         sf::RenderWindow window;
         //sf::View view_upper=window.getDefaultView();
         sf::View view_upper=sf::View(sf::FloatRect(0.f,0.f, window.getSize().x, 16*window.getSize().y/18));
-        sf::View view_lower=sf::View(sf::FloatRect(0.f,0.f, window.getSize().x, 2*window.getSize().y/18));
+        sf::View view_lower=sf::View(sf::FloatRect(0.f,0.f, window.getSize().x, window.getSize().y));
         //sf::Vector2f sq=(1024.f,64.f);
         //sf::View view_lower=sf::View(sf::Vector2f(1024.f,64.f),sf::Vector2f(1000.f,1000.f));
 };

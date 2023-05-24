@@ -22,19 +22,26 @@ void Window::Update(){
                 view_upper=Move('U',view_upper);
             if(event.key.code==sf::Keyboard::Down)
                 view_upper=Move('D',view_upper);
-            //view_upper.setRotation(20.f);
-            //setView();
         }    
         
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
             auto mousePos=sf::Mouse::getPosition(window);
-            sf::Vector2f worldPos = window.mapPixelToCoords(mousePos,view_upper);
-            lastX=(int)worldPos.x/32;
-            lastY=(int)worldPos.y/32;
-            if(worldPos.x<=0) lastX-=1;
-            if(worldPos.y<=0) lastY-=1;
-            std::cout<<worldPos.x<<","<<worldPos.y<<std::endl;
-            std::cout<<lastX<<","<<lastY<<std::endl;
+            sf::Vector2f upPos  = window.mapPixelToCoords(mousePos,view_upper);
+            sf::Vector2f lowPos = window.mapPixelToCoords(mousePos,view_lower); 
+            std::cout<<"mouse Y: "<<mousePos.y<<std::endl;
+            if(mousePos.y<512){
+                upX=(int)upPos.x/32;
+                upY=(int)upPos.y/32;
+                if(upPos.x<=0) upX-=1;
+                if(upPos.y<=0) upY-=1;
+                //std::cout<<upPos.x<<","<<upPos.y<<std::endl;
+                std::cout<<upX<<","<<upY<<std::endl;
+            }
+            else if(mousePos.y>512){
+                lowX=(int)lowPos.x/64;
+                lowY=(int)lowPos.y/64;
+                std::cout<<lowX<<","<<lowY<<std::endl;
+            }
         }   
     }
 }
@@ -76,7 +83,7 @@ sf::Vector2f Window::getViewSize(){
 
 void Window::drawGrid(int rows, int cols){
     //std::cout<<"in draw grid\n";
-    //sf::Vector2f center=view.getCenter();
+    //sf::Vector2f center=view_upper.getCenter();
     //std::cout<<"view: "<<center.x<<","<<center.y<<std::endl;
     sf::View origin=view_upper;//.move(-512,-256);
     origin.move(-512,-256);
@@ -132,26 +139,56 @@ sf::View Window::getDefaultView(){
     return window.getDefaultView(); 
 }
 
-void Window::HighlightBin(){
-    sf::View origin=view_upper;
-    origin.move(-512,-256);
-    //Highlight square in grid base on input positions of map
-    int xpos,ypos;
-    xpos=lastX;
-    ypos=lastY;
-    sf::VertexArray square(sf::LineStrip, 5);
-    square[0].position=sf::Vector2f(32*xpos,32*ypos);
-    square[1].position=sf::Vector2f(32*xpos+32,32*ypos);
-    square[2].position=sf::Vector2f(32*xpos+32,32*ypos+32);
-    square[3].position=sf::Vector2f(32*xpos,32*ypos+32);
-    square[4].position=sf::Vector2f(32*xpos,32*ypos);
-    square[0].color=sf::Color::Green;
-    square[1].color=sf::Color::Green;
-    square[2].color=sf::Color::Green;
-    square[3].color=sf::Color::Green;
-    square[4].color=sf::Color::Green;
+void Window::HighlightBin(int mult){
+    int xpos,ypos,width;
+    sf::View origin;
 
-    Draw(square);
+    if(mult==32){
+        origin=view_upper;
+        origin.move(-512,-256);
+        xpos=upX;
+        ypos=upY;
+        width=2;
+    }
+    else if(mult==64){
+        origin=view_lower;
+        origin.move(-512,-32);
+        xpos=lowX;
+        ypos=lowY;
+        width=4;
+    }
+    
+    sf::RectangleShape top(sf::Vector2f(mult,width));
+    top.setFillColor(sf::Color::Green);
+    sf::RectangleShape bottom(sf::Vector2f(mult,width));
+    bottom.setFillColor(sf::Color::Green);
+    sf::RectangleShape left(sf::Vector2f(width,mult));
+    left.setFillColor(sf::Color::Green);
+    sf::RectangleShape right(sf::Vector2f(width,mult));
+    right.setFillColor(sf::Color::Green);
+    
+    top.setPosition(mult*xpos,mult*ypos-width/2);
+    bottom.setPosition(mult*xpos,mult*ypos+mult-width/2);
+    left.setPosition(mult*xpos-width/2,mult*ypos);
+    right.setPosition(mult*xpos+mult-width/2,mult*ypos);
+
+    Draw(top);
+    Draw(bottom);
+    Draw(left);
+    Draw(right);
+   //sf::VertexArray square(sf::LineStrip, 5);
+    //square[0].position=sf::Vector2f(mult*xpos,mult*ypos);
+    //square[1].position=sf::Vector2f(mult*xpos+mult,mult*ypos);
+    //square[2].position=sf::Vector2f(mult*xpos+mult,mult*ypos+mult);
+    //square[3].position=sf::Vector2f(mult*xpos,mult*ypos+mult);
+    //square[4].position=sf::Vector2f(mult*xpos,mult*ypos);
+    //square[0].color=sf::Color::Green;
+    //square[1].color=sf::Color::Green;
+    //square[2].color=sf::Color::Green;
+    //square[3].color=sf::Color::Green;
+    //square[4].color=sf::Color::Green;
+
+    //Draw(square);
 }
 
 void Window::BeginDraw(){
