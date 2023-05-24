@@ -18,6 +18,8 @@ class mapGenerator{
     private:
         Window window;
 
+        //sf::View view_upper;
+
 };
 
 #endif
