@@ -1,7 +1,13 @@
 #include "mapGenerator.hpp"
 
-mapGenerator::mapGenerator() : window("tile map generator"){
+mapGenerator::mapGenerator() : window("tile map generator"),tiles(){
     std::cout<<"will use later"<<std::endl;
+    if(!tiles.ReadInTiles("../textures/tileset_alt.png", sf::Vector2u(32,32))){
+        std::cout<<"cannot load tileset\n";
+        return;
+    }
+    tiles.setLowerTextures(sf::Vector2u(32,32));
+    std::cout<<"Initialized...\n";
 }
 
 void mapGenerator::Update(){
@@ -14,6 +20,8 @@ void mapGenerator::LateUpdate(){
 void mapGenerator::Draw(){
     window.BeginDraw();
     
+    //std::cout<<"drawing...\n";
+
     window.setViewPort_upper(sf::FloatRect(0.f,0.f,1.f,16/18.f));
     window.setView_upper();
     //std::cout<<"mapGen upper: "<<window.getUpperCenter().x<<","<<window.getUpperCenter().y<<std::endl;
@@ -26,27 +34,7 @@ void mapGenerator::Draw(){
     
     window.setViewPort_lower(sf::FloatRect(0.f,512/576.f,1.f,1.f));
     window.setView_lower();
-    sf::RectangleShape rectangle1(sf::Vector2f(32,32));
-    rectangle1.setPosition(0,0);
-    rectangle1.setFillColor(sf::Color::Green);
-    sf::RectangleShape rectangle2(sf::Vector2f(64,64));
-    rectangle2.setPosition(64,0);
-    rectangle2.setFillColor(sf::Color::Red);
-    sf::RectangleShape rectangle3(sf::Vector2f(64,64));
-    rectangle3.setPosition(128,0);
-    rectangle3.setFillColor(sf::Color::Blue);
-    sf::RectangleShape rectangle4(sf::Vector2f(64,64));
-    rectangle4.setPosition(192,0);
-    rectangle4.setFillColor(sf::Color::Black);
-    sf::RectangleShape rectangle5(sf::Vector2f(64,64));
-    rectangle5.setPosition(256,0);
-    rectangle5.setFillColor(sf::Color::Yellow);
-    sf::RectangleShape rectangle6(sf::Vector2f(64,64));
-    rectangle6.setPosition(320,0);
-    rectangle6.setFillColor(sf::Color::Magenta);
-    sf::RectangleShape rectangle7(sf::Vector2f(64,64));
-    rectangle7.setPosition(384,0);
-    rectangle7.setFillColor(sf::Color::Cyan);
+    window.Draw(tiles);
     sf::RectangleShape rectangle8(sf::Vector2f(64,64));
     rectangle8.setPosition(448,0);
     rectangle8.setFillColor(sf::Color::White);
@@ -75,13 +63,6 @@ void mapGenerator::Draw(){
     rectangle16.setPosition(960,0);
     rectangle16.setFillColor(sf::Color::White);
    
-    window.Draw(rectangle1);
-    window.Draw(rectangle2);
-    window.Draw(rectangle3);
-    window.Draw(rectangle4);
-    window.Draw(rectangle5);
-    window.Draw(rectangle6);
-    window.Draw(rectangle7);
     window.Draw(rectangle8);
     window.Draw(rectangle9);
     window.Draw(rectangle10);

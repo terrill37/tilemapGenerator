@@ -9,6 +9,7 @@
 #include "mapGenerator.hpp"
 
 int main(){
+    std::cout<<"in main\n";
     mapGenerator mapGen;
     while(mapGen.IsRunning()){
         mapGen.Update();
