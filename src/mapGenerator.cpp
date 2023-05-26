@@ -7,6 +7,7 @@ mapGenerator::mapGenerator() : window("tile map generator"),tiles(){
         return;
     }
     tiles.setLowerTextures(sf::Vector2u(32,32));
+    tiles.setUpperTextures(sf::Vector2i(32,32));
     std::cout<<"Initialized...\n";
 }
 
@@ -30,11 +31,15 @@ void mapGenerator::Draw(){
     shape.setFillColor(sf::Color::Red);
     window.Draw(shape);
     window.drawGrid(16,32);
+    tiles.isUpper(true);
+    window.Draw(tiles);
     window.HighlightBin(32);
     
     window.setViewPort_lower(sf::FloatRect(0.f,512/576.f,1.f,1.f));
     window.setView_lower();
+    tiles.isUpper(false);
     window.Draw(tiles);
+
     sf::RectangleShape rectangle8(sf::Vector2f(64,64));
     rectangle8.setPosition(448,0);
     rectangle8.setFillColor(sf::Color::White);

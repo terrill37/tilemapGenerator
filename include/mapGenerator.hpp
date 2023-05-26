@@ -20,7 +20,7 @@ class mapGenerator{
         Window window;
         
         tileView tiles;
-
+        //tileView tilesUpper;
         //sf::View view_upper;
 
 };

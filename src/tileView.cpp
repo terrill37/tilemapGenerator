@@ -9,8 +9,8 @@ bool tileView::load(const std::string& tileset, sf::Vector2u tileSize, const int
         return false;
     }
 
-    m_vertices.setPrimitiveType(sf::Quads);
-    m_vertices.resize(width*height*4);
+    //m_vertices.setPrimitiveType(sf::Quads);
+    //m_vertices.resize(width*height*4);
     
 
 
@@ -77,8 +77,8 @@ void tileView::setLowerTextures(sf::Vector2u tileSize){
     unsigned int width=tilePositions.size();
     unsigned int height=1;
     
-    m_vertices.setPrimitiveType(sf::Quads);
-    m_vertices.resize(width*height*4);
+    m_verticesLower.setPrimitiveType(sf::Quads);
+    m_verticesLower.resize(width*height*4);
 
     for(unsigned int i=0; i<width; i++){
         for(unsigned int j=0; j<height; j++){
@@ -86,7 +86,7 @@ void tileView::setLowerTextures(sf::Vector2u tileSize){
 
             sf::Vector2u tilePos = tilePositions[i];
 
-            sf::Vertex* quad = &m_vertices[(i+j*width)*4];
+            sf::Vertex* quad = &m_verticesLower[(i+j*width)*4];
 
             quad[0].position=sf::Vector2f(2*i*tileSize.x, 2*j*tileSize.y);
             quad[1].position=sf::Vector2f(2*(i+1)*tileSize.x, 2*j*tileSize.y);
@@ -102,3 +102,54 @@ void tileView::setLowerTextures(sf::Vector2u tileSize){
     std::cout<<"end of lower texture\n";
 }
 
+void tileView::setUpperTextures(sf::Vector2i tileSize){
+    std::cout<<"set upper textures\n";
+    
+    unsigned int width=tilePositions.size();
+    unsigned int height=1;
+ 
+    //temporary map definition
+    upperTileLocMap[{0, 0}]=0;
+    upperTileLocMap[{0,2}]=1;
+    upperTileLocMap[{1,1}]=2;
+    upperTileLocMap[{-1,0}]=3;
+    upperTileLocMap[{10,10}]=4;
+    upperTileLocMap[{-9,-9}]=5;
+    upperTileLocMap[{3,-3}]=1;
+
+    m_verticesUpper.setPrimitiveType(sf::Quads);
+    m_verticesUpper.resize(4*upperTileLocMap.size());
+    
+    int k=0;
+    //loop through upperTileLocMap
+    //key is where tile/quad is positioned
+    //value is the tile number to extract from tile set (tilePositions map)
+    for(auto const& [key, val] : upperTileLocMap){
+        
+        std::cout<<"upperTileLocMap: "<<key.first<<","<<key.second<<","<<val<<std::endl;
+        
+        sf::Vector2u tilePos = tilePositions[val];
+
+        sf::Vertex* quad = &m_verticesUpper[4*(k)];
+
+        //std::cout<<"positions: "<<(xFactor)*tileSize.x<<","<<key.second*tileSize.y<<std::endl;
+
+        quad[0].position=sf::Vector2f((key.first)*tileSize.x, key.second*tileSize.y);
+        quad[1].position=sf::Vector2f((key.first+1)*tileSize.x, key.second*tileSize.y);
+        quad[2].position=sf::Vector2f((key.first+1)*tileSize.x, (key.second+1)*tileSize.y);
+        quad[3].position=sf::Vector2f((key.first)*tileSize.x, (key.second+1)*tileSize.y);
+
+        quad[0].texCoords=sf::Vector2f(tilePos.x*tileSize.x, tilePos.y*tileSize.y);
+        quad[1].texCoords=sf::Vector2f((tilePos.x+1)*tileSize.x, tilePos.y*tileSize.y);
+        quad[2].texCoords=sf::Vector2f((tilePos.x+1)*tileSize.x, (tilePos.y+1)*tileSize.y);
+        quad[3].texCoords=sf::Vector2f(tilePos.x*tileSize.x, (tilePos.y+1)*tileSize.y);
+        k++;
+    }
+
+    std::cout<<"end of upper texture\n";
+}
+
+void tileView::isUpper(bool flag){
+    if(flag){m_vertices = m_verticesUpper;}
+    else{m_vertices = m_verticesLower;}
+}
