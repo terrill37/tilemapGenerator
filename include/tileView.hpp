@@ -24,6 +24,9 @@ class tileView : public sf::Drawable, public sf::Transformable{
         void setLowerTextures(sf::Vector2u);
         void setUpperTextures(sf::Vector2i);
         void isUpper(bool);
+        void selectTile(std::pair<int,int>);
+        void setMap(std::pair<int,int>);
+        void setMap();
 
     private:
         virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
@@ -39,6 +42,7 @@ class tileView : public sf::Drawable, public sf::Transformable{
         //location vector of tile # in upper view
         //stores location and tile number to a map that can be used by the setUpperTextures
         std::map<std::pair<int,int>, int> upperTileLocMap;
+        int currentTile=-1;
 };
 
 #endif

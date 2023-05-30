@@ -36,6 +36,8 @@ void Window::Update(){
                 if(upPos.y<=0) upY-=1;
                 //std::cout<<upPos.x<<","<<upPos.y<<std::endl;
                 std::cout<<upX<<","<<upY<<std::endl;
+                if(!firstClick){firstClick=true;}
+                tileMapping();
             }
             else if(mousePos.y>512){
                 lowX=(int)lowPos.x/64;
@@ -139,6 +141,19 @@ sf::View Window::getDefaultView(){
     return window.getDefaultView(); 
 }
 
+void Window::tileMapping(){
+    upCoords={upX,upY}; //may make adjustments in different location
+    lowCoords={lowX, lowY};
+}
+
+std::pair<int,int> Window::retUpCoords(){
+    return upCoords;
+}
+
+std::pair<int,int> Window::retLowCoords(){
+    return lowCoords;
+}
+
 void Window::HighlightBin(int mult){
     int xpos,ypos,width;
     sf::View origin;
@@ -176,19 +191,6 @@ void Window::HighlightBin(int mult){
     Draw(bottom);
     Draw(left);
     Draw(right);
-   //sf::VertexArray square(sf::LineStrip, 5);
-    //square[0].position=sf::Vector2f(mult*xpos,mult*ypos);
-    //square[1].position=sf::Vector2f(mult*xpos+mult,mult*ypos);
-    //square[2].position=sf::Vector2f(mult*xpos+mult,mult*ypos+mult);
-    //square[3].position=sf::Vector2f(mult*xpos,mult*ypos+mult);
-    //square[4].position=sf::Vector2f(mult*xpos,mult*ypos);
-    //square[0].color=sf::Color::Green;
-    //square[1].color=sf::Color::Green;
-    //square[2].color=sf::Color::Green;
-    //square[3].color=sf::Color::Green;
-    //square[4].color=sf::Color::Green;
-
-    //Draw(square);
 }
 
 void Window::BeginDraw(){
@@ -196,7 +198,6 @@ void Window::BeginDraw(){
 }
 
 void Window::Draw(const sf::Drawable& drawable){
-    //std::cout<<"drawable"<<std::endl;
     window.draw(drawable);
 }
 

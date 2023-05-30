@@ -72,6 +72,11 @@ bool tileView::ReadInTiles(const std::string& tileset, sf::Vector2u tileSize){
     return true;   
 }
 
+void tileView::selectTile(std::pair<int,int> pos){
+    //pos marks the currently highlighted texture in the lower view
+    currentTile=pos.first; //will need to change when adding second row of textures
+}
+
 void tileView::setLowerTextures(sf::Vector2u tileSize){
     std::cout<<"set lower textures\n";
     unsigned int width=tilePositions.size();
@@ -103,19 +108,10 @@ void tileView::setLowerTextures(sf::Vector2u tileSize){
 }
 
 void tileView::setUpperTextures(sf::Vector2i tileSize){
-    std::cout<<"set upper textures\n";
+    //std::cout<<"set upper textures\n";
     
     unsigned int width=tilePositions.size();
     unsigned int height=1;
- 
-    //temporary map definition
-    upperTileLocMap[{0, 0}]=0;
-    upperTileLocMap[{0,2}]=1;
-    upperTileLocMap[{1,1}]=2;
-    upperTileLocMap[{-1,0}]=3;
-    upperTileLocMap[{10,10}]=4;
-    upperTileLocMap[{-9,-9}]=5;
-    upperTileLocMap[{3,-3}]=1;
 
     m_verticesUpper.setPrimitiveType(sf::Quads);
     m_verticesUpper.resize(4*upperTileLocMap.size());
@@ -126,13 +122,12 @@ void tileView::setUpperTextures(sf::Vector2i tileSize){
     //value is the tile number to extract from tile set (tilePositions map)
     for(auto const& [key, val] : upperTileLocMap){
         
-        std::cout<<"upperTileLocMap: "<<key.first<<","<<key.second<<","<<val<<std::endl;
-        
+        //std::cout<<"upperTileLocMap: "<<key.first<<","<<key.second<<","<<val<<std::endl;
+        if(val==-1) continue;
+
         sf::Vector2u tilePos = tilePositions[val];
 
         sf::Vertex* quad = &m_verticesUpper[4*(k)];
-
-        //std::cout<<"positions: "<<(xFactor)*tileSize.x<<","<<key.second*tileSize.y<<std::endl;
 
         quad[0].position=sf::Vector2f((key.first)*tileSize.x, key.second*tileSize.y);
         quad[1].position=sf::Vector2f((key.first+1)*tileSize.x, key.second*tileSize.y);
@@ -146,10 +141,18 @@ void tileView::setUpperTextures(sf::Vector2i tileSize){
         k++;
     }
 
-    std::cout<<"end of upper texture\n";
+    //std::cout<<"end of upper texture\n";
 }
 
 void tileView::isUpper(bool flag){
     if(flag){m_vertices = m_verticesUpper;}
     else{m_vertices = m_verticesLower;}
+}
+
+void tileView::setMap(std::pair<int,int> input){
+    upperTileLocMap[input]=currentTile;
+}
+
+void tileView::setMap(){
+    upperTileLocMap[{0,0}]=-1;
 }

@@ -7,7 +7,7 @@ mapGenerator::mapGenerator() : window("tile map generator"),tiles(){
         return;
     }
     tiles.setLowerTextures(sf::Vector2u(32,32));
-    tiles.setUpperTextures(sf::Vector2i(32,32));
+    tiles.setMap();    
     std::cout<<"Initialized...\n";
 }
 
@@ -31,18 +31,19 @@ void mapGenerator::Draw(){
     shape.setFillColor(sf::Color::Red);
     window.Draw(shape);
     window.drawGrid(16,32);
+    if(window.firstClick){tiles.setMap(window.retUpCoords());}
     tiles.isUpper(true);
+    tiles.setUpperTextures(sf::Vector2i(32,32));    
     window.Draw(tiles);
     window.HighlightBin(32);
-    
+
     window.setViewPort_lower(sf::FloatRect(0.f,512/576.f,1.f,1.f));
     window.setView_lower();
     tiles.isUpper(false);
     window.Draw(tiles);
+    
+    tiles.selectTile(window.retLowCoords());
 
-    sf::RectangleShape rectangle8(sf::Vector2f(64,64));
-    rectangle8.setPosition(448,0);
-    rectangle8.setFillColor(sf::Color::White);
     sf::RectangleShape rectangle9(sf::Vector2f(64,64));
     rectangle9.setPosition(512,0);
     rectangle9.setFillColor(sf::Color::Green);
@@ -68,7 +69,6 @@ void mapGenerator::Draw(){
     rectangle16.setPosition(960,0);
     rectangle16.setFillColor(sf::Color::White);
    
-    window.Draw(rectangle8);
     window.Draw(rectangle9);
     window.Draw(rectangle10);
     window.Draw(rectangle11);
