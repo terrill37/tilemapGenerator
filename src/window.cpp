@@ -49,6 +49,10 @@ void Window::Update(){
     }
 }
 
+sf::View Window::GetDefaultView(){
+    return window.getDefaultView();
+}
+
 void Window::setView_upper(){
     //std::cout<<"set view default"<<std::endl;
     window.setView(view_upper);

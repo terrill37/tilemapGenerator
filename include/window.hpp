@@ -16,6 +16,7 @@ class Window{
         float lowX,lowY;
 
         void Update();
+        sf::View GetDefaultView();
         void setView_upper();
         void setView_lower();
         void setView(sf::View);

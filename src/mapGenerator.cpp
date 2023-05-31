@@ -1,6 +1,6 @@
 #include "mapGenerator.hpp"
 
-mapGenerator::mapGenerator() : window("tile map generator"),tiles(){
+mapGenerator::mapGenerator() : window("tile map generator"),StartMenu(window.GetDefaultView()){
     std::cout<<"will use later"<<std::endl;
     if(!tiles.ReadInTiles(tileset, sf::Vector2u(32,32))){
         std::cout<<"cannot load tileset\n";
@@ -85,6 +85,10 @@ void mapGenerator::Draw(){
 
 bool mapGenerator::IsRunning() const{
     return window.IsOpen();
+}
+
+bool mapGenerator::IsMenuRunning(menu menu) const{
+    return menu.IsMenuOpen();
 }
 
 void mapGenerator::SaveMap(){

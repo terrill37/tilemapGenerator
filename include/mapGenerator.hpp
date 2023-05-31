@@ -3,6 +3,7 @@
 
 #include "window.hpp"
 #include "tileView.hpp"
+#include "menu.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -18,12 +19,13 @@ class mapGenerator{
         void SaveMap();
 
         bool IsRunning() const;
+        bool IsMenuRunning(menu) const;
 
     private:
         Window window;
-        
+
         tileView tiles;
-        
+        menu StartMenu;
         std::string tileset="../textures/tileset_alt.png";
 
         //tileView tilesUpper;
