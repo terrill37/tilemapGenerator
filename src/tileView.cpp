@@ -166,7 +166,7 @@ void tileView::retMap(){
         yVals.push_back(key.second);
     }
     int minX=*min_element(xVals.begin(),xVals.end()),minY=*min_element(yVals.begin(),yVals.end());
-    int maxX=*max_element(xVals.begin(),xVals.end()),maxY=*max_element(xVals.begin(),xVals.end());
+    int maxX=*max_element(xVals.begin(),xVals.end()),maxY=*max_element(yVals.begin(),yVals.end());
     dimX=abs(maxX - minX)+1;
     dimY=abs(maxY - minY)+1;
 
@@ -175,8 +175,8 @@ void tileView::retMap(){
     std::cout<<"min x element: "<<*min_element(xVals.begin(),xVals.end())<<std::endl;
     
     outputMap="";
-    for(int i=minX; i<=maxX; i++){
-        for(int j=minY; j<=maxY; j++){
+    for(int j=minY; j<maxY+1; j++){
+        for(int i=minX; i<maxX+1; i++){
             std::cout<<i<<","<<j<<std::endl;
             if(upperTileLocMap.count({i,j})==1){
                 std::cout<<"found key\n";
