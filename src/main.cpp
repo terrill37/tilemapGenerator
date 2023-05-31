@@ -15,7 +15,8 @@ int main(){
         mapGen.Update();
         mapGen.LateUpdate();
         mapGen.Draw();
-    }    
+    }
+    mapGen.SaveMap();
     return 0;
 }
 

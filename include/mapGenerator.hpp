@@ -5,6 +5,8 @@
 #include "tileView.hpp"
 
 #include <iostream>
+#include <fstream>
+#include <map>
 
 class mapGenerator{
     public:
@@ -13,6 +15,7 @@ class mapGenerator{
         void Update();
         void LateUpdate();
         void Draw();
+        void SaveMap();
 
         bool IsRunning() const;
 
@@ -20,6 +23,9 @@ class mapGenerator{
         Window window;
         
         tileView tiles;
+        
+        std::string tileset="../textures/tileset_alt.png";
+
         //tileView tilesUpper;
         //sf::View view_upper;
 

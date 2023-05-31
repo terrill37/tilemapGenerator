@@ -156,3 +156,37 @@ void tileView::setMap(std::pair<int,int> input){
 void tileView::setMap(){
     upperTileLocMap[{0,0}]=-1;
 }
+
+void tileView::retMap(){
+    //use this function to store info about map when closing window
+    std::vector<int> xVals,yVals;
+    for(auto const& [key,val] : upperTileLocMap){
+        if(val<0) continue;
+        xVals.push_back(key.first);
+        yVals.push_back(key.second);
+    }
+    int minX=*min_element(xVals.begin(),xVals.end()),minY=*min_element(yVals.begin(),yVals.end());
+    int maxX=*max_element(xVals.begin(),xVals.end()),maxY=*max_element(xVals.begin(),xVals.end());
+    dimX=abs(maxX - minX)+1;
+    dimY=abs(maxY - minY)+1;
+
+    std::cout<<"map of size: "<<dimX<<"x"<<dimY<<std::endl;
+    std::cout<<"max x element: "<<*max_element(xVals.begin(),xVals.end())<<std::endl;
+    std::cout<<"min x element: "<<*min_element(xVals.begin(),xVals.end())<<std::endl;
+    
+    outputMap="";
+    for(int i=minX; i<=maxX; i++){
+        for(int j=minY; j<=maxY; j++){
+            std::cout<<i<<","<<j<<std::endl;
+            if(upperTileLocMap.count({i,j})==1){
+                std::cout<<"found key\n";
+                outputMap+=std::to_string(upperTileLocMap.at({i,j}))+",";
+            }
+            else{
+                std::cout<<"no key\n";
+                outputMap+="-1,";
+            }
+        }
+        outputMap+="\n";
+    }
+}

@@ -2,7 +2,7 @@
 
 mapGenerator::mapGenerator() : window("tile map generator"),tiles(){
     std::cout<<"will use later"<<std::endl;
-    if(!tiles.ReadInTiles("../textures/tileset_alt.png", sf::Vector2u(32,32))){
+    if(!tiles.ReadInTiles(tileset, sf::Vector2u(32,32))){
         std::cout<<"cannot load tileset\n";
         return;
     }
@@ -85,4 +85,21 @@ void mapGenerator::Draw(){
 
 bool mapGenerator::IsRunning() const{
     return window.IsOpen();
+}
+
+void mapGenerator::SaveMap(){
+    std::string text="tileset: ";
+    text+=tileset+"\n\n";
+
+    tiles.retMap();
+    
+    text+="dim X: "+std::to_string(tiles.dimX)+"\n";
+    text+="dim Y: "+std::to_string(tiles.dimY)+"\n\n";
+
+    text+="tileMap:\n";
+    text+=tiles.outputMap;
+
+    std::ofstream file;
+    file.open("../generatedMaps/mapSave.txt");
+    file << text;
 }

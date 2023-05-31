@@ -27,6 +27,10 @@ class tileView : public sf::Drawable, public sf::Transformable{
         void selectTile(std::pair<int,int>);
         void setMap(std::pair<int,int>);
         void setMap();
+        void retMap(); //returns map positions
+        
+        int dimX,dimY;
+        std::string outputMap; 
 
     private:
         virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
