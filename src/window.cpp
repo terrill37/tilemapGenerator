@@ -68,6 +68,10 @@ void Window::setView(sf::View v){
     window.setView(v);
 }
 
+sf::Vector2u Window::GetSize(){
+    return window.getSize();
+}
+
 sf::Vector2f Window::getUpperCenter(){
     return view_upper.getCenter();
 }

@@ -18,12 +18,13 @@ struct menuItemAttr{
 
 class menu : public sf::Drawable, public sf::Transformable{
     public:
-        menu(sf::View); //constructor
+        menu(sf::View, sf::Vector2u); //constructor
         menu();
         ~menu(); //destructor
         
         void AddMenuItem(menuItemAttr);
         void makeMenu();
+        void SetMenuDims(sf::Vector2u, sf::Vector2u);
         void SetView(sf::View);
         
         sf::View GetView();
@@ -35,6 +36,9 @@ class menu : public sf::Drawable, public sf::Transformable{
 
     private:
         sf::View menuView;
+        sf::Vector2u menuSize;
+        sf::Vector2u menuDims; //dimensions of the menu in terms of menu items in x and y
+        sf::Vector2u menuItemDims; //dimensions of the menu items in terms of x and y pixels
         sf::Font font;
 
         std::vector<menuItemAttr> menuItems;

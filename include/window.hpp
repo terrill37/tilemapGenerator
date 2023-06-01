@@ -23,6 +23,7 @@ class Window{
         void setViewPort_upper(sf::FloatRect);
         void setViewPort_lower(sf::FloatRect);
         sf::View getDefaultView();
+        sf::Vector2u GetSize();
         sf::Vector2f getUpperCenter();
         sf::Vector2f getLowerCenter();
         sf::Vector2f getViewSize();

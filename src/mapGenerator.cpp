@@ -1,12 +1,11 @@
 #include "mapGenerator.hpp"
 
-mapGenerator::mapGenerator() : window("tile map generator"),StartMenu(window.GetDefaultView()){
-    std::cout<<"will use later"<<std::endl;
+mapGenerator::mapGenerator() : window("tile map generator"),StartMenu(window.GetDefaultView(), window.GetSize()){
     if(!tiles.ReadInTiles(tileset, sf::Vector2u(32,32))){
         std::cout<<"cannot load tileset\n";
         return;
     }
-    std::string menuFontLoc="/mnt/c/Windows/Fonts/arial.ttf";
+    std::string menuFontLoc="/mnt/c/Windows/Fonts/cour.ttf";
     if(!font.loadFromFile(menuFontLoc)){
         std::cout<<"cannot load font"<<std::endl;
         return;
@@ -100,11 +99,11 @@ void mapGenerator::DrawMenu(){
     window.Draw(StartMenu);
     
     for(auto t : StartMenu.texts){
-        std::cout<<"text string: "<<t.getString().toAnsiString()<<std::endl;
+        //std::cout<<"text string: "<<t.getString().toAnsiString()<<std::endl;
         t.setFont(font);
         window.Draw(t);
     }
-    std::cout<<"after loop\n";
+    //std::cout<<"after loop\n";
 
     window.EndDraw();
 }
@@ -119,17 +118,36 @@ bool mapGenerator::IsMenuRunning(std::string menuName="startup"){
 }
 
 void mapGenerator::StartUpMenu(){
+    StartMenu.SetMenuDims(sf::Vector2u(1,3), sf::Vector2u(128,64));
     //generate startup menu attributes
     menuItemAttr submit;
     submit.readable=false;
     submit.itemText.setString("Submit");
-    //submit.itemText.setFont(StartMenu.GetFont());
-    submit.itemText.setCharacterSize(24);
+    submit.itemText.setCharacterSize(64);
     submit.itemText.setFillColor(sf::Color::Red);
     submit.relLoc={0,0};
     submit.itemSize={128,64};
+    
+    menuItemAttr test;
+    test.readable=false;
+    test.itemText.setString("test");
+    test.itemText.setCharacterSize(64);
+    test.itemText.setFillColor(sf::Color::Green);
+    test.relLoc={0,1};
+    test.itemSize={128,64};
+    
+    menuItemAttr test2;
+    test2.readable=false;
+    test2.itemText.setString("test");
+    test2.itemText.setCharacterSize(64);
+    test2.itemText.setFillColor(sf::Color::Green);
+    test2.relLoc={0,2};
+    test2.itemSize={128,64};
+
 
     StartMenu.AddMenuItem(submit);
+    StartMenu.AddMenuItem(test);
+    StartMenu.AddMenuItem(test2);
 }
 
 void mapGenerator::SaveMap(){
