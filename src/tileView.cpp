@@ -134,6 +134,7 @@ void tileView::setUpperTextures(sf::Vector2i tileSize){
         quad[2].position=sf::Vector2f((key.first+1)*tileSize.x, (key.second+1)*tileSize.y);
         quad[3].position=sf::Vector2f((key.first)*tileSize.x, (key.second+1)*tileSize.y);
 
+        //tile positions in tileset
         quad[0].texCoords=sf::Vector2f(tilePos.x*tileSize.x, tilePos.y*tileSize.y);
         quad[1].texCoords=sf::Vector2f((tilePos.x+1)*tileSize.x, tilePos.y*tileSize.y);
         quad[2].texCoords=sf::Vector2f((tilePos.x+1)*tileSize.x, (tilePos.y+1)*tileSize.y);

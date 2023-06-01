@@ -7,15 +7,17 @@
 #include <SFML/Network.hpp>
 
 #include "mapGenerator.hpp"
-//#include "menu.hpp"
 
 int main(){
-    //std::cout<<"in main\n";
     mapGenerator mapGen;
     while(mapGen.IsRunning()){
         mapGen.Update();
         mapGen.LateUpdate();
-        mapGen.Draw();
+        if(!mapGen.IsMenuRunning("startup")){
+            mapGen.Draw();
+            mapGen.StartUpMenu();
+        }
+        else{mapGen.DrawMenu();}
     }
     mapGen.SaveMap();
     return 0;

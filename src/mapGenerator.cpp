@@ -6,8 +6,18 @@ mapGenerator::mapGenerator() : window("tile map generator"),StartMenu(window.Get
         std::cout<<"cannot load tileset\n";
         return;
     }
+    std::string menuFontLoc="/mnt/c/Windows/Fonts/arial.ttf";
+    if(!font.loadFromFile(menuFontLoc)){
+        std::cout<<"cannot load font"<<std::endl;
+        return;
+    }
+
     tiles.setLowerTextures(sf::Vector2u(32,32));
     tiles.setMap();    
+    
+    StartUpMenu();
+    StartMenu.makeMenu();
+    
     std::cout<<"Initialized...\n";
 }
 
@@ -83,12 +93,43 @@ void mapGenerator::Draw(){
     window.EndDraw();
 }
 
+void mapGenerator::DrawMenu(){
+    window.BeginDraw();
+    window.setView(StartMenu.GetView());
+
+    window.Draw(StartMenu);
+    
+    for(auto t : StartMenu.texts){
+        std::cout<<"text string: "<<t.getString().toAnsiString()<<std::endl;
+        t.setFont(font);
+        window.Draw(t);
+    }
+    std::cout<<"after loop\n";
+
+    window.EndDraw();
+}
+
 bool mapGenerator::IsRunning() const{
     return window.IsOpen();
 }
 
-bool mapGenerator::IsMenuRunning(menu menu) const{
-    return menu.IsMenuOpen();
+bool mapGenerator::IsMenuRunning(std::string menuName="startup"){
+    if(menuName=="startup") return StartMenu.IsMenuOpen();
+    else return false;//return menu.IsMenuOpen();
+}
+
+void mapGenerator::StartUpMenu(){
+    //generate startup menu attributes
+    menuItemAttr submit;
+    submit.readable=false;
+    submit.itemText.setString("Submit");
+    //submit.itemText.setFont(StartMenu.GetFont());
+    submit.itemText.setCharacterSize(24);
+    submit.itemText.setFillColor(sf::Color::Red);
+    submit.relLoc={0,0};
+    submit.itemSize={128,64};
+
+    StartMenu.AddMenuItem(submit);
 }
 
 void mapGenerator::SaveMap(){

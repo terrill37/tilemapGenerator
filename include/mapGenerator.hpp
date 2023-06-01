@@ -17,9 +17,12 @@ class mapGenerator{
         void LateUpdate();
         void Draw();
         void SaveMap();
+        void StartUpMenu();
 
         bool IsRunning() const;
-        bool IsMenuRunning(menu) const;
+        bool IsMenuRunning(std::string);
+        
+        void DrawMenu();
 
     private:
         Window window;
@@ -27,6 +30,8 @@ class mapGenerator{
         tileView tiles;
         menu StartMenu;
         std::string tileset="../textures/tileset_alt.png";
+        
+        sf::Font font;
 
         //tileView tilesUpper;
         //sf::View view_upper;
