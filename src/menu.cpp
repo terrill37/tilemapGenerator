@@ -45,7 +45,7 @@ void menu::makeMenu(){
         
         //int yMult=item.relLoc.second+1;
         int yShift=0;
-        if(item.relLoc.second<menuDims.y/2 && !evenY){
+        if(item.relLoc.second<menuDims.y/2){
             std::cout<<"upper half, odd\n";
             yShift = (menuDims.y-item.relLoc.second-1)*menuItemDims.y/2;
         }
@@ -53,7 +53,10 @@ void menu::makeMenu(){
             std::cout<<"lower half, odd\n";
             yShift -= (menuDims.y-item.relLoc.second+1)*menuItemDims.y/2;
         }
-       
+        else if(item.relLoc.second>=menuDims.y/2 && evenY){
+            std::cout<<"lower half, even\n";
+            yShift -= (menuDims.y-item.relLoc.second)*menuItemDims.y/2;
+        }
         
         std::cout<<"yShift: "<<yShift<<std::endl;
         //std::cout<<yMult<<std::endl;
