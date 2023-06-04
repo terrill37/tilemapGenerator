@@ -23,7 +23,7 @@ void button::makeQuad(sf::Vertex* quad){
 
     sf::Color buttonCol;
     if(hover){
-        std::cout<<"hovering\n";
+        //std::cout<<"hovering\n";
         buttonCol=sf::Color::Red;
     }
     else{
@@ -39,4 +39,3 @@ void button::makeQuad(sf::Vertex* quad){
     buttonText->setFillColor(sf::Color::Blue);
 }
 
-void button::draw(sf::RenderTarget&, sf::RenderStates) const{}

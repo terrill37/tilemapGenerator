@@ -15,8 +15,6 @@ class button{
         bool hover=false;
         sf::Text* buttonText;
         float top,bottom,left,right;
-
-        virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 };
 
 #endif

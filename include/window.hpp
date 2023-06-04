@@ -40,6 +40,7 @@ class Window{
         bool firstClick=false;
         sf::Vector2i mousePos;
         sf::Vector2i* GetMousePos();
+        char* GetUserInput();
         
 
     private:
@@ -48,5 +49,6 @@ class Window{
         sf::View view_lower=sf::View(sf::FloatRect(0.f,0.f, window.getSize().x, window.getSize().y));
         std::pair<int,int> upCoords;
         std::pair<int,int> lowCoords;
+        char userInput;
 };
 #endif

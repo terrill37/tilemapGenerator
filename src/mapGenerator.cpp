@@ -1,6 +1,6 @@
 #include "mapGenerator.hpp"
 
-mapGenerator::mapGenerator() : window("tile map generator"),StartMenu(window.GetDefaultView(), window.GetSize(), window.GetMousePos()){
+mapGenerator::mapGenerator() : window("tile map generator"),StartMenu(window.GetDefaultView(), window.GetSize(), window.GetMousePos(), window.GetUserInput()){
     if(!tiles.ReadInTiles(tileset, sf::Vector2u(32,32))){
         std::cout<<"cannot load tileset\n";
         return;
@@ -125,36 +125,32 @@ void mapGenerator::StartUpMenu(){
     submit.readable=false;
     submit.itemText.setString("Submit");
     submit.itemText.setCharacterSize(64);
-    submit.itemText.setFillColor(sf::Color::Red);
     submit.relLoc={0,0};
     submit.itemSize={128,64};
     
-    menuItemAttr test;
-    test.readable=true;
-    test.itemText.setString("test1");
-    test.itemText.setCharacterSize(64);
-    test.itemText.setFillColor(sf::Color::Green);
-    test.relLoc={0,1};
-    test.itemSize={128,64};
+    menuItemAttr loadMap;
+    loadMap.readable=true;
+    loadMap.itemText.setString("Load Map Save: ");
+    loadMap.itemText.setCharacterSize(16);
+    loadMap.relLoc={0,1};
+    loadMap.itemSize={128,64};
     
     menuItemAttr test2;
     test2.readable=true;
     test2.itemText.setString("test2");
     test2.itemText.setCharacterSize(64);
-    test2.itemText.setFillColor(sf::Color::Green);
     test2.relLoc={1,0};
     test2.itemSize={128,64};
 
     menuItemAttr test3;
-    test3.readable=true;
+    test3.readable=false;
     test3.itemText.setString("test3");
     test3.itemText.setCharacterSize(64);
-    test3.itemText.setFillColor(sf::Color::Green);
     test3.relLoc={1,1};
     test3.itemSize={128,64};
 
     StartMenu.AddMenuItem(submit);
-    StartMenu.AddMenuItem(test);
+    StartMenu.AddMenuItem(loadMap);
     StartMenu.AddMenuItem(test2);
     StartMenu.AddMenuItem(test3);
 }

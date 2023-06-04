@@ -1,9 +1,10 @@
 #include "menu.hpp"
 
-menu::menu(sf::View windowView, sf::Vector2u windowSize, sf::Vector2i* moPos){
+menu::menu(sf::View windowView, sf::Vector2u windowSize, sf::Vector2i* moPos, char* userIn){
     menuView=windowView;
     menuSize=windowSize;
     mousePos=moPos;
+    userInput=userIn;
     //std::string menuFontLoc="/mnt/c/Windows/Fonts/arial.ttf";
     //if(!font.loadFromFile(menuFontLoc)){return;}
 }
@@ -77,23 +78,16 @@ void menu::makeMenu(){
         //std::cout<<"before button\n";
         if(!item.readable){
             button b(top,bottom,right,left,&item.itemText);
-            //std::cout<<mousePos->x<<","<<mousePos->y<<std::endl;
             b.Contains(mousePos); //get mouse position
             b.makeQuad(quad);
         }
         else{
-            quad[0].position=sf::Vector2f(left, top);
-            quad[1].position=sf::Vector2f(right, top);
-            quad[2].position=sf::Vector2f(right, bottom);
-            quad[3].position=sf::Vector2f(left, bottom);
-            
-            quad[0].color=sf::Color::Green;
-            quad[1].color=sf::Color::Blue;
-            quad[2].color=sf::Color::Green;
-            quad[3].color=sf::Color::Blue;
+            textBox tb(top,bottom,right,left,&item.itemText,item.userInput);
+            tb.makeText(userInput);
+            item.userInput=tb.updateUserLabel();
+            tb.makeQuad(quad);
             
             item.itemText.setPosition(left, top);
-            //texts.push_back(item.itemText);
         }
         texts.push_back(&item.itemText);
 

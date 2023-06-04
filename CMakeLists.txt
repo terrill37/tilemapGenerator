@@ -33,7 +33,8 @@ add_executable(tileMapGenerator ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
                                 ${CMAKE_CURRENT_LIST_DIR}/src/window.cpp
 	 	 	 	 	 	        ${CMAKE_CURRENT_LIST_DIR}/src/tileView.cpp
                                 ${CMAKE_CURRENT_LIST_DIR}/src/menu.cpp
-                                ${CMAKE_CURRENT_LIST_DIR}/src/button.cpp)
+                                ${CMAKE_CURRENT_LIST_DIR}/src/button.cpp
+                                ${CMAKE_CURRENT_LIST_DIR}/src/textBox.cpp)
 
 #target_include_directories(tileMapGenerator PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include)
 

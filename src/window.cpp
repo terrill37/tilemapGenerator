@@ -6,6 +6,7 @@ void Window::Update(){
     sf::Event event;
     while(window.pollEvent(event)){
         mousePos=sf::Mouse::getPosition(window);
+        //userInput;
         //std::cout<<"mousePos: "<<mousePos.x<<","<<mousePos.y<<std::endl;
         if(event.type==sf::Event::Closed){
             window.close();
@@ -27,6 +28,10 @@ void Window::Update(){
                 view_upper=Move('D',view_upper);
         }    
         
+        if(event.type == sf::Event::TextEntered){
+            userInput=static_cast<char>(event.text.unicode);
+        }
+
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
             //mousePos=sf::Mouse::getPosition(window);
             sf::Vector2f upPos  = window.mapPixelToCoords(mousePos,view_upper);
@@ -222,5 +227,10 @@ bool Window::IsOpen() const{
 
 sf::Vector2i* Window::GetMousePos(){
     auto *ptr = &mousePos;
+    return ptr;
+}
+
+char* Window::GetUserInput(){
+    auto *ptr = &userInput;
     return ptr;
 }
