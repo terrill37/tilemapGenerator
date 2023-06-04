@@ -38,6 +38,8 @@ class Window{
         void EndDraw();
         bool IsOpen() const;
         bool firstClick=false;
+        sf::Vector2i mousePos;
+        sf::Vector2i* GetMousePos();
         
 
     private:

@@ -6,19 +6,16 @@
 
 class button{
     public:
-        button();
+        button(float,float,float,float,sf::Text*);
         ~button();
-        void CheckClick(sf::Vector2f);
-        void SetState(bool);
-        void SetText(std::string);
-        bool GetVar();
-        sf::String* GetText();
-    
+        void Contains(sf::Vector2i*);
+        void makeQuad(sf::Vertex*);
+
     private:
-        bool current;
-        sf::String buttonText;
-        sf::Vector2f size;
-        sf::Vector2f loc;
+        bool hover=false;
+        sf::Text* buttonText;
+        float top,bottom,left,right;
+
         virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 };
 

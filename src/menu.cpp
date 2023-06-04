@@ -1,8 +1,9 @@
 #include "menu.hpp"
 
-menu::menu(sf::View windowView, sf::Vector2u windowSize){
+menu::menu(sf::View windowView, sf::Vector2u windowSize, sf::Vector2i* moPos){
     menuView=windowView;
     menuSize=windowSize;
+    mousePos=moPos;
     //std::string menuFontLoc="/mnt/c/Windows/Fonts/arial.ttf";
     //if(!font.loadFromFile(menuFontLoc)){return;}
 }
@@ -36,45 +37,65 @@ void menu::makeMenu(){
     //menuItems;
     int i=0;
     
-    std::cout<<"menuSize y: "<<menuSize.y<<std::endl;
-    bool evenY=false;
+    //std::cout<<"menuSize y: "<<menuSize.y<<std::endl;
+    bool evenX=false,evenY=false;
+    if(menuDims.x%2==0){evenX=true;}
     if(menuDims.y%2==0){evenY=true;}
 
     for(auto& item : menuItems){ 
         sf::Vertex* quad = &m_menuVertices[4*i];
         
-        //int yMult=item.relLoc.second+1;
+        int xShift=0;
+        if(item.relLoc.first<menuDims.x/2){
+            xShift = (menuDims.x-item.relLoc.first-1)*menuItemDims.x/2;
+        }
+        else if(item.relLoc.first>menuDims.x/2 && !evenX){
+            xShift -= (menuDims.x-item.relLoc.first+1)*menuItemDims.x/2;
+        }
+        else if(item.relLoc.first>=menuDims.x/2 && evenX){
+            xShift -= (menuDims.x-item.relLoc.first)*menuItemDims.x/2;
+        }
+        
         int yShift=0;
         if(item.relLoc.second<menuDims.y/2){
-            std::cout<<"upper half, odd\n";
             yShift = (menuDims.y-item.relLoc.second-1)*menuItemDims.y/2;
         }
         else if(item.relLoc.second>menuDims.y/2 && !evenY){
-            std::cout<<"lower half, odd\n";
             yShift -= (menuDims.y-item.relLoc.second+1)*menuItemDims.y/2;
         }
         else if(item.relLoc.second>=menuDims.y/2 && evenY){
-            std::cout<<"lower half, even\n";
             yShift -= (menuDims.y-item.relLoc.second)*menuItemDims.y/2;
         }
         
-        std::cout<<"yShift: "<<yShift<<std::endl;
-        //std::cout<<yMult<<std::endl;
-        std::cout<<"top:    "<<(menuSize.y-menuItemDims.y)/2-yShift<<std::endl;
-        std::cout<<"bottom: "<<(menuSize.y+menuItemDims.y)/2-yShift<<std::endl;
-
-        quad[0].position=sf::Vector2f((menuSize.x-menuItemDims.x)/2, (menuSize.y-menuItemDims.y)/2-yShift);
-        quad[1].position=sf::Vector2f((menuSize.x+menuItemDims.x)/2, (menuSize.y-menuItemDims.y)/2-yShift);
-        quad[2].position=sf::Vector2f((menuSize.x+menuItemDims.x)/2, (menuSize.y+menuItemDims.y)/2-yShift);
-        quad[3].position=sf::Vector2f((menuSize.x-menuItemDims.x)/2, (menuSize.y+menuItemDims.y)/2-yShift);
-
-        quad[0].color=sf::Color::Green;
-        quad[1].color=sf::Color::Blue;
-        quad[2].color=sf::Color::Green;
-        quad[3].color=sf::Color::Blue;
-
-        item.itemText.setPosition((menuSize.x-menuItemDims.x)/2, (menuSize.y-menuItemDims.y)/2-yShift);
-        texts.push_back(item.itemText);
+        //std::cout<<"yShift: "<<yShift<<std::endl;
+        //std::cout<<"xShift: "<<xShift<<std::endl;
+        float top       = (menuSize.y-menuItemDims.y)/2-yShift;
+        float bottom    = (menuSize.y+menuItemDims.y)/2-yShift;
+        float left      = (menuSize.x-menuItemDims.x)/2-xShift;
+        float right     = (menuSize.x+menuItemDims.x)/2-xShift;
+        
+        //std::cout<<"before button\n";
+        if(!item.readable){
+            button b(top,bottom,right,left,&item.itemText);
+            //std::cout<<mousePos->x<<","<<mousePos->y<<std::endl;
+            b.Contains(mousePos); //get mouse position
+            b.makeQuad(quad);
+        }
+        else{
+            quad[0].position=sf::Vector2f(left, top);
+            quad[1].position=sf::Vector2f(right, top);
+            quad[2].position=sf::Vector2f(right, bottom);
+            quad[3].position=sf::Vector2f(left, bottom);
+            
+            quad[0].color=sf::Color::Green;
+            quad[1].color=sf::Color::Blue;
+            quad[2].color=sf::Color::Green;
+            quad[3].color=sf::Color::Blue;
+            
+            item.itemText.setPosition(left, top);
+            //texts.push_back(item.itemText);
+        }
+        texts.push_back(&item.itemText);
 
         i++;
     }
@@ -84,4 +105,9 @@ void menu::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     states.transform *= getTransform();
     //states.texture    = &m_menuVertices;
     target.draw(m_menuVertices, states);
+}
+
+void menu::Update(sf::Vector2i* moPos){
+    mousePos=moPos;
+    makeMenu();
 }
