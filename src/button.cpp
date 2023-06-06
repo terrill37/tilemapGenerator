@@ -34,8 +34,20 @@ void button::makeQuad(sf::Vertex* quad){
     quad[1].color=buttonCol;
     quad[2].color=buttonCol;
     quad[3].color=buttonCol;
-
-    buttonText->setPosition(left,top);
+    
+    //get the button texts bounding box to be able to center
+    float bWidth  = abs(left - right);
+    float bHeight = abs(top - bottom);
+    auto tWidth  = buttonText->getLocalBounds().width;
+    auto tHeight = buttonText->getLocalBounds().height;
+    
+    float dX = (1/2.)*(bWidth-tWidth);
+    float dY = (1/2.)*(bHeight-tHeight);
+    
+    std::cout<<"text: "<<tWidth<<","<<tHeight<<std::endl;
+    std::cout<<"button: "<<bWidth<<","<<bHeight<<std::endl;
+    
+    buttonText->setPosition(left+dX,top+dY);
     buttonText->setFillColor(sf::Color::Blue);
 }
 

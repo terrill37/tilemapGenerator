@@ -48,7 +48,7 @@ void textBox::makeText(std::string input){
 void textBox::makeText(char* input){
     written.push_back(*input);
     *input='\0';
-    std::cout<<written<<std::endl;
+    //std::cout<<written<<std::endl;
 }
 
 std::string textBox::updateUserLabel(){
