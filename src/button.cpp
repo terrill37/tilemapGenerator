@@ -44,8 +44,8 @@ void button::makeQuad(sf::Vertex* quad){
     float dX = (1/2.)*(bWidth-tWidth);
     float dY = (1/2.)*(bHeight-tHeight);
     
-    std::cout<<"text: "<<tWidth<<","<<tHeight<<std::endl;
-    std::cout<<"button: "<<bWidth<<","<<bHeight<<std::endl;
+    //std::cout<<"text: "<<tWidth<<","<<tHeight<<std::endl;
+    //std::cout<<"button: "<<bWidth<<","<<bHeight<<std::endl;
     
     buttonText->setPosition(left+dX,top+dY);
     buttonText->setFillColor(sf::Color::Blue);
