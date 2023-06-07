@@ -14,8 +14,8 @@ struct menuItemAttr{
     std::pair<int,int> relLoc; //relative position of the menu items to one another; 
                                //menu centered in window by default
     std::pair<int,int> itemSize; //relative size of button
-    sf::String userInput; //will be updated in non-button class
-    
+    std::string userInput=":"; //will be updated in non-button class
+    sf::Text userText;
 };
 
 class menu : public sf::Drawable, public sf::Transformable{

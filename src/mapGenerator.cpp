@@ -125,30 +125,16 @@ void mapGenerator::StartUpMenu(){
     submit.readable=false;
     submit.itemText.setString("Submit");
     submit.itemText.setCharacterSize(16);
-    submit.relLoc={0,0};
+    submit.relLoc={0,1};
     submit.itemSize={128,64};
     
     menuItemAttr loadMap;
     loadMap.readable=true;
     loadMap.itemText.setString("Load Map Save: ");
-    loadMap.itemText.setCharacterSize(8);
-    loadMap.relLoc={0,1};
+    loadMap.itemText.setCharacterSize(16);
+    loadMap.relLoc={0,0};
     loadMap.itemSize={128,64};
-    
-    menuItemAttr test2;
-    test2.readable=true;
-    test2.itemText.setString("test2");
-    test2.itemText.setCharacterSize(64);
-    test2.relLoc={1,0};
-    test2.itemSize={128,64};
-
-    menuItemAttr test3;
-    test3.readable=false;
-    test3.itemText.setString("test3");
-    test3.itemText.setCharacterSize(64);
-    test3.relLoc={1,1};
-    test3.itemSize={128,64};
-
+ 
     StartMenu.AddMenuItem(submit);
     StartMenu.AddMenuItem(loadMap);
     //StartMenu.AddMenuItem(test2);
@@ -171,5 +157,4 @@ void mapGenerator::SaveMap(){
     file.open("../generatedMaps/mapSave.txt");
     file << text;
 }
-
 

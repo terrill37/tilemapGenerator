@@ -68,14 +68,11 @@ void menu::makeMenu(){
             yShift -= (menuDims.y-item.relLoc.second)*menuItemDims.y/2;
         }
         
-        //std::cout<<"yShift: "<<yShift<<std::endl;
-        //std::cout<<"xShift: "<<xShift<<std::endl;
         float top       = (menuSize.y-menuItemDims.y)/2-yShift;
         float bottom    = (menuSize.y+menuItemDims.y)/2-yShift;
         float left      = (menuSize.x-menuItemDims.x)/2-xShift;
         float right     = (menuSize.x+menuItemDims.x)/2-xShift;
         
-        //std::cout<<"before button\n";
         if(!item.readable){
             button b(top,bottom,right,left,&item.itemText);
             b.Contains(mousePos); //get mouse position
@@ -84,20 +81,17 @@ void menu::makeMenu(){
         else{
             textBox tb(top,bottom,right,left,&item.itemText,item.userInput);
             tb.makeText(userInput);
-            item.userInput=tb.updateUserLabel();
+            item.userInput=tb.updateUserLabel(&item.userText);
             tb.makeQuad(quad);
-            
-            item.itemText.setPosition(left, top);
+            texts.push_back(&item.userText);
         }
         texts.push_back(&item.itemText);
-
         i++;
     }
 }
 
 void menu::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     states.transform *= getTransform();
-    //states.texture    = &m_menuVertices;
     target.draw(m_menuVertices, states);
 }
 

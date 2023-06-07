@@ -15,11 +15,12 @@ class textBox{
         void makeQuad(sf::Vertex*);
         void makeText(std::string);
         void makeText(char*);
-        std::string updateUserLabel();
+        std::string updateUserLabel(sf::Text*);
 
     private:
         bool hover=false;
         sf::Text* label;
+        //sf::Text* userInput;
         std::string written;
         float top,bottom,left,right;
 };

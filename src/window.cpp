@@ -31,6 +31,7 @@ void Window::Update(){
         if(event.type == sf::Event::TextEntered){
             userInput=static_cast<char>(event.text.unicode);
         }
+        else{userInput = '\0';}
 
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
             //mousePos=sf::Mouse::getPosition(window);
