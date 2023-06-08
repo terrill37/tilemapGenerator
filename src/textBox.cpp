@@ -59,11 +59,11 @@ void textBox::makeText(std::string input){
 }
 
 void textBox::makeText(char* input){
-    if(!*input=='\0'){
+    if(*input!='\0'){
         if(*input=='\b' && written.size()>0){
             written.pop_back();
         }
-        else{written.push_back(*input);}
+        else if(*input!='\b'){written.push_back(*input);}
         *input='\0';
     //userInput->setString(written);
     std::cout<<written<<std::endl;
