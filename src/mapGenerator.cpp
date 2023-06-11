@@ -126,6 +126,7 @@ void mapGenerator::StartUpMenu(){
     submit.itemText.setString("Submit");
     submit.itemText.setCharacterSize(16);
     submit.relLoc={0,2};
+    submit.isSubmission=true;
     submit.itemSize={128,64};
     
     menuItemAttr loadMap;

@@ -29,7 +29,7 @@ void menu::SetMenuDims(sf::Vector2u dims, sf::Vector2u itemSize){
 }
 
 bool menu::IsMenuOpen(){
-    return true;
+    return !exit;
 }
 
 void menu::makeMenu(){
@@ -77,6 +77,7 @@ void menu::makeMenu(){
             button b(top,bottom,right,left,&item.itemText,&item.active);
             b.Contains(mousePos,click); //get mouse position
             b.makeQuad(quad);
+            if(item.isSubmission && item.active){setExit();}
         }
         else{
             textBox tb(top,bottom,right,left,&item.itemText,item.userInput,&item.active);
@@ -89,6 +90,14 @@ void menu::makeMenu(){
         texts.push_back(&item.itemText);
         i++;
     }
+}
+
+void menu::setExit(){
+    exit=true;
+}
+
+bool menu::isExit(){
+    return exit;
 }
 
 void menu::draw(sf::RenderTarget& target, sf::RenderStates states) const{

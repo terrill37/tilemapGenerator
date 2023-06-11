@@ -15,7 +15,6 @@ int main(){
         mapGen.LateUpdate();
         if(!mapGen.IsMenuRunning("startup")){
             mapGen.Draw();
-            mapGen.StartUpMenu();
         }
         else{mapGen.DrawMenu();}
     }
