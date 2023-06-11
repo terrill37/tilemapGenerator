@@ -74,8 +74,8 @@ void menu::makeMenu(){
         float right     = (menuSize.x+menuItemDims.x)/2-xShift;
         
         if(!item.readable){
-            button b(top,bottom,right,left,&item.itemText);
-            b.Contains(mousePos); //get mouse position
+            button b(top,bottom,right,left,&item.itemText,&item.active);
+            b.Contains(mousePos,click); //get mouse position
             b.makeQuad(quad);
         }
         else{

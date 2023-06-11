@@ -6,13 +6,14 @@
 
 class button{
     public:
-        button(float,float,float,float,sf::Text*);
+        button(float,float,float,float,sf::Text*,bool*);
         ~button();
-        void Contains(sf::Vector2i*);
+        void Contains(sf::Vector2i*, bool);
         void makeQuad(sf::Vertex*);
 
     private:
         bool hover=false;
+        bool* active;
         sf::Text* buttonText;
         float top,bottom,left,right;
 };

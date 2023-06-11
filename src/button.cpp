@@ -1,18 +1,27 @@
 #include "button.hpp"
 
-button::button(float ymax, float ymin, float xmax, float xmin, sf::Text* text){
+button::button(float ymax, float ymin, float xmax, float xmin, sf::Text* text, bool* isActive){
     top=ymax;
     bottom=ymin;
     left=xmin;
     right=xmax;
+    active=isActive;
     buttonText=text;
 }
 
 button::~button(){}
 
-void button::Contains(sf::Vector2i* mousePos){
-    if(left<mousePos->x && right>mousePos->x && top<mousePos->y && bottom>mousePos->y){hover=true;}
-    else{hover=false;}
+void button::Contains(sf::Vector2i* mousePos, bool mouseClick){
+    if(left<mousePos->x && right>mousePos->x && top<mousePos->y && bottom>mousePos->y){
+        hover=true;
+        if(mouseClick && !*active){*active=true;}
+        else if(mouseClick && *active){*active=false;}//togglable
+    }
+    else{
+        hover=false;
+        if(mouseClick){*active=false;}
+    }
+    std::cout<<*active<<" in button\n";
 }
 
 void button::makeQuad(sf::Vertex* quad){
@@ -22,7 +31,7 @@ void button::makeQuad(sf::Vertex* quad){
     quad[3].position=sf::Vector2f(left, bottom);
 
     sf::Color buttonCol;
-    if(hover){
+    if(hover || *active){
         //std::cout<<"hovering\n";
         buttonCol=sf::Color::Red;
     }
