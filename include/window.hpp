@@ -11,9 +11,16 @@ class Window{
             window.setVerticalSyncEnabled(true);
         }
 
+        float lastX=0,lastY=0;
+
         void Update();
         void setView();
+        void setView(sf::View);
+        sf::View getDefaultView();
         sf::Vector2f getViewSize();
+        sf::View Move(char, sf::View);
+        void drawGrid(int, int);
+        void HighlightBin();
         void BeginDraw();
         void Draw(const sf::Drawable& drawable);
         void EndDraw();
@@ -21,6 +28,7 @@ class Window{
 
     private:
         sf::RenderWindow window;
+        sf::View view=window.getDefaultView();
 
 };
 #endif
