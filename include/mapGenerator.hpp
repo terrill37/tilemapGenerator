@@ -2,6 +2,7 @@
 #define mapGenerator_hpp
 
 #include "window.hpp"
+#include "tileView.hpp"
 
 #include <iostream>
 
@@ -17,6 +18,10 @@ class mapGenerator{
 
     private:
         Window window;
+        
+        tileView tiles;
+
+        //sf::View view_upper;
 
 };
 
