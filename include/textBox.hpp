@@ -9,9 +9,9 @@
 
 class textBox{
     public:
-        textBox(float,float,float,float,sf::Text*,std::string);
+        textBox(float,float,float,float,sf::Text*,std::string,bool*);
         ~textBox();
-        void Contains(sf::Vector2i*);
+        void Contains(sf::Vector2i*,bool);
         void makeQuad(sf::Vertex*);
         void makeText(std::string);
         void makeText(char*);
@@ -20,7 +20,7 @@ class textBox{
     private:
         bool hover=false;
         sf::Text* label;
-        //sf::Text* userInput;
+        bool* active;
         std::string written;
         float top,bottom,left,right;
 };

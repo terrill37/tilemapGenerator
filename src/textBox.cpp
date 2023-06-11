@@ -1,22 +1,29 @@
 #include "textBox.hpp"
 
-textBox::textBox(float ymax, float ymin, float xmax, float xmin, sf::Text* text, std::string userLabel){
+textBox::textBox(float ymax, float ymin, float xmax, float xmin, sf::Text* text, std::string userLabel, bool* isActive){
     top=ymax;
     bottom=ymin;
     left=xmin;
     right=xmax;
     label=text;
+    active=isActive; //intialization if text box is initially active
     //userInput=userLabel;
     written=userLabel;
-
-    //std::cout<<"written: "<<written<<std::endl;
 }
 
 textBox::~textBox(){}
 
-void textBox::Contains(sf::Vector2i* mousePos){
-    if(left<mousePos->x && right>mousePos->x && top<mousePos->y && bottom>mousePos->y){hover=true;}
-    else{hover=false;}
+void textBox::Contains(sf::Vector2i* mousePos, bool mouseClick){
+    // Will use function to make textbox active;
+    if(left<mousePos->x && right>mousePos->x && top<mousePos->y && bottom>mousePos->y){
+        hover=true;
+        if(mouseClick){*active=true;} //doesn't need a deactivate condition unless 
+                                     //clicked in different spot while not hovering
+    }
+    else{
+        hover=false;
+        if(mouseClick){*active=false;}
+    }
 }
 
 void textBox::makeQuad(sf::Vertex* quad){
@@ -59,14 +66,14 @@ void textBox::makeText(std::string input){
 }
 
 void textBox::makeText(char* input){
-    if(*input!='\0'){
+    if(*input!='\0' && *active){
         if(*input=='\b' && written.size()>0){
             written.pop_back();
         }
         else if(*input!='\b'){written.push_back(*input);}
         *input='\0';
     //userInput->setString(written);
-    std::cout<<written<<std::endl;
+    //std::cout<<*active<<": "<<written<<std::endl;
     }
 }
 

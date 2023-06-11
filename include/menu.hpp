@@ -14,8 +14,9 @@ struct menuItemAttr{
     std::pair<int,int> relLoc; //relative position of the menu items to one another; 
                                //menu centered in window by default
     std::pair<int,int> itemSize; //relative size of button
-    std::string userInput=":"; //will be updated in non-button class
+    std::string userInput=""; //will be updated in non-button class
     sf::Text userText;
+    bool active=false; //pointer to turn on and off
 };
 
 class menu : public sf::Drawable, public sf::Transformable{
@@ -28,7 +29,7 @@ class menu : public sf::Drawable, public sf::Transformable{
         void makeMenu();
         void SetMenuDims(sf::Vector2u, sf::Vector2u);
         void SetView(sf::View);
-        void Update(sf::Vector2i*);
+        void Update(sf::Vector2i*,bool);
 
         sf::View GetView();
         sf::Font GetFont();
@@ -43,6 +44,7 @@ class menu : public sf::Drawable, public sf::Transformable{
         sf::Vector2u menuDims; //dimensions of the menu in terms of menu items in x and y
         sf::Vector2u menuItemDims; //dimensions of the menu items in terms of x and y pixels
         sf::Vector2i* mousePos;
+        bool click;
         char* userInput;
         sf::Font font;
 

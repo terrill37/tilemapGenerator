@@ -79,9 +79,10 @@ void menu::makeMenu(){
             b.makeQuad(quad);
         }
         else{
-            textBox tb(top,bottom,right,left,&item.itemText,item.userInput);
+            textBox tb(top,bottom,right,left,&item.itemText,item.userInput,&item.active);
             tb.makeText(userInput);
             item.userInput=tb.updateUserLabel(&item.userText);
+            tb.Contains(mousePos,click);
             tb.makeQuad(quad);
             texts.push_back(&item.userText);
         }
@@ -95,7 +96,8 @@ void menu::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     target.draw(m_menuVertices, states);
 }
 
-void menu::Update(sf::Vector2i* moPos){
+void menu::Update(sf::Vector2i* moPos, bool mouseClick){
     mousePos=moPos;
+    click=mouseClick;
     makeMenu();
 }

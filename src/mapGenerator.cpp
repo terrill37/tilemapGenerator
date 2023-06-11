@@ -23,7 +23,7 @@ mapGenerator::mapGenerator() : window("tile map generator"),StartMenu(window.Get
 void mapGenerator::Update(){
     //std::cout<<"in update\n";
     window.Update();
-    StartMenu.Update(window.GetMousePos());
+    StartMenu.Update(window.GetMousePos(),window.isMouseClicked);
 }
 
 void mapGenerator::LateUpdate(){
@@ -132,12 +132,13 @@ void mapGenerator::StartUpMenu(){
     loadMap.readable=true;
     loadMap.itemText.setString("Load Map Save: ");
     loadMap.itemText.setCharacterSize(8);
+    loadMap.active=true;
     loadMap.relLoc={0,0};
     loadMap.itemSize={128,64};
     
     menuItemAttr loadTiles;
     loadTiles.readable=true;
-    loadTiles.itemText.setString("Load Map Save: ");
+    loadTiles.itemText.setString("Load Tile Set: ");
     loadTiles.itemText.setCharacterSize(8);
     loadTiles.relLoc={0,1};
     loadTiles.itemSize={128,64};

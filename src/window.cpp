@@ -6,6 +6,7 @@ void Window::Update(){
     sf::Event event;
     while(window.pollEvent(event)){
         mousePos=sf::Mouse::getPosition(window);
+        isMouseClicked=sf::Mouse::isButtonPressed(sf::Mouse::Left);
         //userInput;
         //std::cout<<"mousePos: "<<mousePos.x<<","<<mousePos.y<<std::endl;
         if(event.type==sf::Event::Closed){
