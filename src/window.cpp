@@ -10,9 +10,10 @@ void Window::Update(){
         }
         
         if(event.type==sf::Event::KeyPressed){
-            if(event.key.code==sf::Keyboard::Escape)
+            if(event.key.code==sf::Keyboard::Escape){
                 window.close();
-            
+            }
+
             std::cout<<"view event: "<<view_upper.getCenter().x<<","<<view_upper.getCenter().y<<std::endl;
             if(event.key.code==sf::Keyboard::Left)
                 view_upper=Move('L',view_upper);
