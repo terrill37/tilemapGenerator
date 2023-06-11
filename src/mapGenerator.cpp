@@ -119,25 +119,32 @@ bool mapGenerator::IsMenuRunning(std::string menuName="startup"){
 }
 
 void mapGenerator::StartUpMenu(){
-    StartMenu.SetMenuDims(sf::Vector2u(1,2), sf::Vector2u(128,64));
+    StartMenu.SetMenuDims(sf::Vector2u(1,3), sf::Vector2u(128,64));
     //generate startup menu attributes
     menuItemAttr submit;
     submit.readable=false;
     submit.itemText.setString("Submit");
     submit.itemText.setCharacterSize(16);
-    submit.relLoc={0,1};
+    submit.relLoc={0,2};
     submit.itemSize={128,64};
     
     menuItemAttr loadMap;
     loadMap.readable=true;
     loadMap.itemText.setString("Load Map Save: ");
-    loadMap.itemText.setCharacterSize(16);
+    loadMap.itemText.setCharacterSize(8);
     loadMap.relLoc={0,0};
     loadMap.itemSize={128,64};
- 
+    
+    menuItemAttr loadTiles;
+    loadTiles.readable=true;
+    loadTiles.itemText.setString("Load Map Save: ");
+    loadTiles.itemText.setCharacterSize(8);
+    loadTiles.relLoc={0,1};
+    loadTiles.itemSize={128,64};
+
     StartMenu.AddMenuItem(submit);
     StartMenu.AddMenuItem(loadMap);
-    //StartMenu.AddMenuItem(test2);
+    StartMenu.AddMenuItem(loadTiles);
     //StartMenu.AddMenuItem(test3);
 }
 
