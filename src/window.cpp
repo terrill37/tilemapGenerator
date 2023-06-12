@@ -35,7 +35,11 @@ void Window::Update(){
         }    
         
         if(event.type == sf::Event::TextEntered){
-            userInput=static_cast<char>(event.text.unicode);
+            bool lowerCase=(event.text.unicode<122 && event.text.unicode>=97);
+            bool upperCase=(event.text.unicode<90  && event.text.unicode>=65);
+            if(lowerCase || upperCase || event.text.unicode==8 || event.text.unicode==32 ){
+                userInput=static_cast<char>(event.text.unicode);
+            }
         }
         else{userInput = '\0';}
 
