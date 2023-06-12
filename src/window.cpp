@@ -7,8 +7,13 @@ void Window::Update(){
     while(window.pollEvent(event)){
         mousePos=sf::Mouse::getPosition(window);
         isMouseClicked=sf::Mouse::isButtonPressed(sf::Mouse::Left);
+        //std::cout<<isMouseClicked<<std::endl;
+        //while(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+        //    if(event.type==sf::Event::MouseButtonReleased){break;}
+        //}
         //userInput;
         //std::cout<<"mousePos: "<<mousePos.x<<","<<mousePos.y<<std::endl;
+
         if(event.type==sf::Event::Closed){
             window.close();
         }

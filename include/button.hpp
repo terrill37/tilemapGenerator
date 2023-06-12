@@ -14,6 +14,7 @@ class button{
     private:
         bool hover=false;
         bool* active;
+        bool prevMouseState=false; //previous mouse click state
         sf::Text* buttonText;
         float top,bottom,left,right;
 };

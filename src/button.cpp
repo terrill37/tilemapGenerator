@@ -14,13 +14,15 @@ button::~button(){}
 void button::Contains(sf::Vector2i* mousePos, bool mouseClick){
     if(left<mousePos->x && right>mousePos->x && top<mousePos->y && bottom>mousePos->y){
         hover=true;
-        if(mouseClick && !*active){*active=true;}
-        else if(mouseClick && *active){*active=false;}//togglable
+        if(mouseClick && !*active && prevMouseState!=mouseClick){*active=true;}
+        else if(mouseClick && *active && prevMouseState!=mouseClick){*active=false;}//togglable
+        prevMouseState=mouseClick;
     }
     else{
         hover=false;
-        if(mouseClick){*active=false;}
+        if(mouseClick && prevMouseState!=mouseClick){*active=false;}
     }
+    //prevMouseState=(mouseClick && *active);
     std::cout<<*active<<" in button\n";
 }
 
