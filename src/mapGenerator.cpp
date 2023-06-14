@@ -1,18 +1,18 @@
 #include "mapGenerator.hpp"
 
 mapGenerator::mapGenerator() : window("tile map generator"),StartMenu(window.GetDefaultView(), window.GetSize(), window.GetMousePos(), window.GetUserInput()){
-    if(!tiles.ReadInTiles(tileset, sf::Vector2u(32,32))){
-        std::cout<<"cannot load tileset\n";
-        return;
-    }
+    //if(!tiles.ReadInTiles(tileset, sf::Vector2u(32,32))){
+    //    std::cout<<"cannot load tileset\n";
+    //    return;
+    //}
     std::string menuFontLoc="/mnt/c/Windows/Fonts/cour.ttf";
     if(!font.loadFromFile(menuFontLoc)){
         std::cout<<"cannot load font"<<std::endl;
         return;
     }
 
-    tiles.setLowerTextures(sf::Vector2u(32,32));
-    tiles.setMap();    
+    //tiles.setLowerTextures(sf::Vector2u(32,32));
+    //tiles.setMap();    
     
     StartUpMenu();
     //StartMenu.makeMenu();
@@ -32,6 +32,15 @@ void mapGenerator::menuUpdate(){
 }
 
 void mapGenerator::LateUpdate(){
+}
+
+void mapGenerator::LoadTiles(std::string tileset="../textures/tileset_alt.png"){
+    if(!tiles.ReadInTiles(tileset, sf::Vector2u(32,32))){
+        std::cout<<"cannot load tileset\n";
+        return;
+    }
+    tiles.setLowerTextures(sf::Vector2u(32,32));
+    tiles.setMap();
 }
 
 void mapGenerator::Draw(){

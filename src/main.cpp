@@ -15,6 +15,8 @@ int main(){
         //mapGen.LateUpdate();
         mapGen.DrawMenu();
     }
+    
+    mapGen.LoadTiles();
 
     while(mapGen.IsRunning()){
         mapGen.Update();
