@@ -23,6 +23,11 @@ mapGenerator::mapGenerator() : window("tile map generator"),StartMenu(window.Get
 void mapGenerator::Update(){
     //std::cout<<"in update\n";
     window.Update();
+    //StartMenu.Update(window.GetMousePos(),window.isMouseClicked);
+}
+
+void mapGenerator::menuUpdate(){
+    window.Update();
     StartMenu.Update(window.GetMousePos(),window.isMouseClicked);
 }
 

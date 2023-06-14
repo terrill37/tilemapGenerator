@@ -15,6 +15,7 @@ class mapGenerator{
 
         void Update();
         void LateUpdate();
+        void menuUpdate();
         void Draw();
         void SaveMap();
         void StartUpMenu();
