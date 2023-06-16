@@ -11,7 +11,7 @@ menu::menu(sf::View windowView, sf::Vector2u windowSize, sf::Vector2i* moPos, ch
 
 menu::~menu(){}
 
-void menu::AddMenuItem(menuItemAttr newItem){
+void menu::AddMenuItem(menuItemAttr* newItem){
     menuItems.push_back(newItem);
 }
 
@@ -43,29 +43,29 @@ void menu::makeMenu(){
     if(menuDims.x%2==0){evenX=true;}
     if(menuDims.y%2==0){evenY=true;}
 
-    for(auto& item : menuItems){ 
+    for(auto item : menuItems){ 
         sf::Vertex* quad = &m_menuVertices[4*i];
         
         int xShift=0;
-        if(item.relLoc.first<menuDims.x/2){
-            xShift = (menuDims.x-item.relLoc.first-1)*menuItemDims.x/2;
+        if(item->relLoc.first<menuDims.x/2){
+            xShift = (menuDims.x-item->relLoc.first-1)*menuItemDims.x/2;
         }
-        else if(item.relLoc.first>menuDims.x/2 && !evenX){
-            xShift -= (menuDims.x-item.relLoc.first+1)*menuItemDims.x/2;
+        else if(item->relLoc.first>menuDims.x/2 && !evenX){
+            xShift -= (menuDims.x-item->relLoc.first+1)*menuItemDims.x/2;
         }
-        else if(item.relLoc.first>=menuDims.x/2 && evenX){
-            xShift -= (menuDims.x-item.relLoc.first)*menuItemDims.x/2;
+        else if(item->relLoc.first>=menuDims.x/2 && evenX){
+            xShift -= (menuDims.x-item->relLoc.first)*menuItemDims.x/2;
         }
         
         int yShift=0;
-        if(item.relLoc.second<menuDims.y/2){
-            yShift = (menuDims.y-item.relLoc.second-1)*menuItemDims.y/2;
+        if(item->relLoc.second<menuDims.y/2){
+            yShift = (menuDims.y-item->relLoc.second-1)*menuItemDims.y/2;
         }
-        else if(item.relLoc.second>menuDims.y/2 && !evenY){
-            yShift -= (menuDims.y-item.relLoc.second+1)*menuItemDims.y/2;
+        else if(item->relLoc.second>menuDims.y/2 && !evenY){
+            yShift -= (menuDims.y-item->relLoc.second+1)*menuItemDims.y/2;
         }
-        else if(item.relLoc.second>=menuDims.y/2 && evenY){
-            yShift -= (menuDims.y-item.relLoc.second)*menuItemDims.y/2;
+        else if(item->relLoc.second>=menuDims.y/2 && evenY){
+            yShift -= (menuDims.y-item->relLoc.second)*menuItemDims.y/2;
         }
         
         float top       = (menuSize.y-menuItemDims.y)/2-yShift;
@@ -73,21 +73,22 @@ void menu::makeMenu(){
         float left      = (menuSize.x-menuItemDims.x)/2-xShift;
         float right     = (menuSize.x+menuItemDims.x)/2-xShift;
         
-        if(!item.readable){
-            button b(top,bottom,right,left,&item.itemText,&item.active);
+        std::cout<<"before button\n";
+        if(!item->readable){
+            button b(top,bottom,right,left,&item->itemText, &item->active);
             b.Contains(mousePos,click); //get mouse position
             b.makeQuad(quad);
-            if(item.isSubmission && item.active){setExit();}
+            if(item->isSubmission && item->active){setExit();}
         }
         else{
-            textBox tb(top,bottom,right,left,&item.itemText,item.userInput,&item.active);
+            textBox tb(top,bottom,right,left,&item->itemText,item->userInput,&item->active);
             tb.makeText(userInput);
-            item.userInput=tb.updateUserLabel(&item.userText);
+            item->userInput=tb.updateUserLabel(&item->userText);
             tb.Contains(mousePos,click);
             tb.makeQuad(quad);
-            texts.push_back(&item.userText);
+            texts.push_back(&item->userText);
         }
-        texts.push_back(&item.itemText);
+        texts.push_back(&item->itemText);
         i++;
     }
 }

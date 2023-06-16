@@ -26,7 +26,7 @@ class menu : public sf::Drawable, public sf::Transformable{
         menu();
         ~menu(); //destructor
         
-        void AddMenuItem(menuItemAttr);
+        void AddMenuItem(menuItemAttr*);
         void makeMenu();
         void setExit();
         bool isExit();
@@ -52,7 +52,7 @@ class menu : public sf::Drawable, public sf::Transformable{
         char* userInput;
         sf::Font font;
 
-        std::vector<menuItemAttr> menuItems;
+        std::vector<menuItemAttr*> menuItems;
         sf::VertexArray m_menuVertices;
         virtual void draw(sf::RenderTarget&, sf::RenderStates) const; //make the menu the drawable
 

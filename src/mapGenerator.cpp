@@ -10,20 +10,14 @@ mapGenerator::mapGenerator() : window("tile map generator"),StartMenu(window.Get
         std::cout<<"cannot load font"<<std::endl;
         return;
     }
-
-    //tiles.setLowerTextures(sf::Vector2u(32,32));
-    //tiles.setMap();    
     
     StartUpMenu();
-    //StartMenu.makeMenu();
     
     std::cout<<"Initialized...\n";
 }
 
 void mapGenerator::Update(){
-    //std::cout<<"in update\n";
     window.Update();
-    //StartMenu.Update(window.GetMousePos(),window.isMouseClicked);
 }
 
 void mapGenerator::menuUpdate(){
@@ -34,7 +28,10 @@ void mapGenerator::menuUpdate(){
 void mapGenerator::LateUpdate(){
 }
 
-void mapGenerator::LoadTiles(std::string tileset="../textures/tileset_alt.png"){
+void mapGenerator::LoadTiles(std::string tilesetName="../textures/tileset_alt.png"){
+    tileset="../textures/"+loadTiles.userText.getString()+".png";
+    //std::cout<<"userText: "<<loadMap.userInput<<std::endl;
+    //std::cout<<tileset<<std::endl;
     if(!tiles.ReadInTiles(tileset, sf::Vector2u(32,32))){
         std::cout<<"cannot load tileset\n";
         return;
@@ -50,8 +47,6 @@ void mapGenerator::Draw(){
 
     window.setViewPort_upper(sf::FloatRect(0.f,0.f,1.f,16/18.f));
     window.setView_upper();
-    //std::cout<<"mapGen upper: "<<window.getUpperCenter().x<<","<<window.getUpperCenter().y<<std::endl;
-    //std::cout<<"mapGen lower: "<<window.getLowerCenter().x<<","<<window.getLowerCenter().y<<std::endl;
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Red);
     window.Draw(shape);
@@ -114,7 +109,7 @@ void mapGenerator::DrawMenu(){
     window.Draw(StartMenu);
     
     for(auto t : StartMenu.texts){
-        //std::cout<<"text string: "<<t.getString().toAnsiString()<<std::endl;
+        //std::cout<<"text string: "<<t->getString().toAnsiString()<<std::endl;
         t->setFont(font);
         window.Draw(*t);
     }
@@ -135,7 +130,7 @@ bool mapGenerator::IsMenuRunning(std::string menuName="startup"){
 void mapGenerator::StartUpMenu(){
     StartMenu.SetMenuDims(sf::Vector2u(1,3), sf::Vector2u(128,64));
     //generate startup menu attributes
-    menuItemAttr submit;
+    //menuItemAttr submit;
     submit.readable=false;
     submit.itemText.setString("Submit");
     submit.itemText.setCharacterSize(16);
@@ -143,7 +138,7 @@ void mapGenerator::StartUpMenu(){
     submit.isSubmission=true;
     submit.itemSize={128,64};
     
-    menuItemAttr loadMap;
+    //menuItemAttr loadMap;
     loadMap.readable=true;
     loadMap.itemText.setString("Load Map Save: ");
     loadMap.itemText.setCharacterSize(8);
@@ -151,16 +146,16 @@ void mapGenerator::StartUpMenu(){
     loadMap.relLoc={0,0};
     loadMap.itemSize={128,64};
     
-    menuItemAttr loadTiles;
+    //menuItemAttr loadTiles;
     loadTiles.readable=true;
     loadTiles.itemText.setString("Load Tile Set: ");
     loadTiles.itemText.setCharacterSize(8);
     loadTiles.relLoc={0,1};
     loadTiles.itemSize={128,64};
 
-    StartMenu.AddMenuItem(submit);
-    StartMenu.AddMenuItem(loadMap);
-    StartMenu.AddMenuItem(loadTiles);
+    StartMenu.AddMenuItem(&submit);
+    StartMenu.AddMenuItem(&loadMap);
+    StartMenu.AddMenuItem(&loadTiles);
     //StartMenu.AddMenuItem(test3);
 }
 
@@ -179,5 +174,9 @@ void mapGenerator::SaveMap(){
     std::ofstream file;
     file.open("../generatedMaps/mapSave.txt");
     file << text;
+}
+
+std::string GetTileSetName(){
+    return "tileset_alt"; //loadTiles.userInput;
 }
 
