@@ -73,7 +73,6 @@ void menu::makeMenu(){
         float left      = (menuSize.x-menuItemDims.x)/2-xShift;
         float right     = (menuSize.x+menuItemDims.x)/2-xShift;
         
-        std::cout<<"before button\n";
         if(!item->readable){
             button b(top,bottom,right,left,&item->itemText, &item->active);
             b.Contains(mousePos,click); //get mouse position

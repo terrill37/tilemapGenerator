@@ -47,9 +47,9 @@ void mapGenerator::Draw(){
 
     window.setViewPort_upper(sf::FloatRect(0.f,0.f,1.f,16/18.f));
     window.setView_upper();
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Red);
-    window.Draw(shape);
+    //sf::CircleShape shape(100.f);
+    //shape.setFillColor(sf::Color::Red);
+    //window.Draw(shape);
     window.drawGrid(16,32);
     if(window.firstClick){tiles.setMap(window.retUpCoords());}
     tiles.isUpper(true);
@@ -123,14 +123,19 @@ bool mapGenerator::IsRunning() const{
 }
 
 bool mapGenerator::IsMenuRunning(std::string menuName="startup"){
-    if(menuName=="startup") return StartMenu.IsMenuOpen();
-    else return false;//return menu.IsMenuOpen();
+    if(menuName=="startup"){ 
+        if(!StartMenu.IsMenuOpen()){window.resetMousePos();}
+        return StartMenu.IsMenuOpen();
+    }
+    else{ 
+        window.resetMousePos();
+        return false;
+    }
 }
 
 void mapGenerator::StartUpMenu(){
     StartMenu.SetMenuDims(sf::Vector2u(1,3), sf::Vector2u(128,64));
     //generate startup menu attributes
-    //menuItemAttr submit;
     submit.readable=false;
     submit.itemText.setString("Submit");
     submit.itemText.setCharacterSize(16);
@@ -156,7 +161,6 @@ void mapGenerator::StartUpMenu(){
     StartMenu.AddMenuItem(&submit);
     StartMenu.AddMenuItem(&loadMap);
     StartMenu.AddMenuItem(&loadTiles);
-    //StartMenu.AddMenuItem(test3);
 }
 
 void mapGenerator::SaveMap(){
