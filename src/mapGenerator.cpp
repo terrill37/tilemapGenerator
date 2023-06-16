@@ -224,8 +224,23 @@ void mapGenerator::LoadMap(){
             else if(line.find("tileMap:") != std::string::npos){
                 continue;
             }
-            std::cout<<line<<std::endl;
+            //std::cout<<line<<std::endl;
+            for(int i=0; i<line.size(); i++){
+                //std::cout<<"in while\n";
+                if(line[i]==','){
+                    //std::cout<<"comma\n";
+                    continue;
+                }
+                else if(line[i+1]!=','){
+                    mapTileNum.push_back(int(line[i])*10 + int(line[i+1]));
+                }
+                else{
+                    //std::cout<<line[i]<<"\n";
+                    mapTileNum.push_back(int(line[i]-'0'));
+                }
+            }
         }
+        tiles.setMap(mapTileNum);
     }
 }
 

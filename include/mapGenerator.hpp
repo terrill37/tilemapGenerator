@@ -11,6 +11,7 @@
 #include <filesystem>
 #include <ctime>
 #include <regex>
+#include <sstream>
 
 class mapGenerator{
     public:
@@ -40,6 +41,7 @@ class mapGenerator{
         std::string mapsave;
 
         sf::Font font;
+        std::vector<int> mapTileNum;
         
         menuItemAttr loadTiles;
         menuItemAttr loadMap;

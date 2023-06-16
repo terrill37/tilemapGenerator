@@ -158,6 +158,15 @@ void tileView::setMap(){
     upperTileLocMap[{0,0}]=-1;
 }
 
+void tileView::setMap(std::vector<int> tileNums){
+    for(int j=0; j<dimY; j++){
+        for(int i=0; i<dimX; i++){
+            upperTileLocMap[{i,j}]=tileNums.front();
+            tileNums.erase(tileNums.begin());
+        }
+    }
+}
+
 void tileView::retMap(){
     //use this function to store info about map when closing window
     std::vector<int> xVals,yVals;
@@ -178,16 +187,17 @@ void tileView::retMap(){
     outputMap="";
     for(int j=minY; j<maxY+1; j++){
         for(int i=minX; i<maxX+1; i++){
-            std::cout<<i<<","<<j<<std::endl;
+            //std::cout<<i<<","<<j<<std::endl;
             if(upperTileLocMap.count({i,j})==1){
-                std::cout<<"found key\n";
+                //std::cout<<"found key\n";
                 outputMap+=std::to_string(upperTileLocMap.at({i,j}))+",";
             }
             else{
-                std::cout<<"no key\n";
+                //std::cout<<"no key\n";
                 outputMap+="-1,";
             }
         }
+        outputMap.pop_back();
         outputMap+="\n";
     }
 }
