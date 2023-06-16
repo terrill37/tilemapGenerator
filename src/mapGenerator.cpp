@@ -176,18 +176,37 @@ void mapGenerator::SaveMap(){
     text+=tiles.outputMap;
 
     std::ofstream file;
-    file.open("../generatedMaps/mapSave.txt");
+    file.open(mapsave);
     file << text;
 }
 
 void mapGenerator::LoadMap(){
-    mapsave="../generatedMaps/"+loadMap.userText.getString()+".txt";
-    std::ifstream savedFile(mapsave);
-    std::string line;
-    while(std::getline(savedFile,line)){
-        std::cout<<line<<std::endl;
+    if(!loadMap.userText.getString().toAnsiString().size()==0){
+        mapsave="../generatedMaps/"+loadMap.userText.getString()+".txt";
     }
+    else{
+        time_t now = time(0);
+        tm* ltm = localtime(&now);
+        auto year=1900+ltm->tm_year;
+        auto month=1+ltm->tm_mon;
+        auto day=ltm->tm_mday;
+        
+        std::string date=std::to_string(year)+"_"+std::to_string(month)+"_"+std::to_string(day);
 
+        mapsave="../generatedMaps/genMap_"+date+".txt";
+    }
+    if(!std::filesystem::exists(mapsave)){
+        std::cout<<"Map Save File Does Not Exist\nSkipping map loading procedure\n";
+    }
+    else{
+        std::cout<<"Map Save File Exists\n Loading map...\n";
+
+        std::ifstream savedFile(mapsave);
+        std::string line;
+        while(std::getline(savedFile,line)){
+            std::cout<<line<<std::endl;
+        }
+    }
 }
 
 //std::string GetTileSetName(){
