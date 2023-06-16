@@ -10,6 +10,7 @@
 #include <map>
 #include <filesystem>
 #include <ctime>
+#include <regex>
 
 class mapGenerator{
     public:
@@ -46,7 +47,6 @@ class mapGenerator{
 
         //tileView tilesUpper;
         //sf::View view_upper;
-
 };
 
 #endif

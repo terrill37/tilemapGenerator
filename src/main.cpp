@@ -18,8 +18,8 @@ int main(){
     
     mapGen.menuUpdate();
     std::string tileset="../textures/";
-    mapGen.LoadTiles(tileset);
     mapGen.LoadMap();
+    mapGen.LoadTiles(tileset);
 
     while(mapGen.IsRunning()){
         mapGen.Update();

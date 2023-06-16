@@ -29,7 +29,9 @@ void mapGenerator::LateUpdate(){
 }
 
 void mapGenerator::LoadTiles(std::string tilesetName="../textures/tileset_alt.png"){
-    tileset="../textures/"+loadTiles.userText.getString()+".png";
+    if(tileset.size()==0){
+        tileset="../textures/"+loadTiles.userText.getString()+".png";
+    }
     //std::cout<<"userText: "<<loadMap.userInput<<std::endl;
     //std::cout<<tileset<<std::endl;
     if(!tiles.ReadInTiles(tileset, sf::Vector2u(32,32))){
@@ -176,6 +178,7 @@ void mapGenerator::SaveMap(){
     text+=tiles.outputMap;
 
     std::ofstream file;
+    std::cout<<"mapsave: "<<mapsave<<std::endl;
     file.open(mapsave);
     file << text;
 }
@@ -200,10 +203,27 @@ void mapGenerator::LoadMap(){
     }
     else{
         std::cout<<"Map Save File Exists\n Loading map...\n";
-
         std::ifstream savedFile(mapsave);
         std::string line;
+        bool inMap=false;
         while(std::getline(savedFile,line)){
+            //std::cout<<line<<std::endl;
+            if(line.find("tileset:") != std::string::npos){
+                tileset=std::regex_replace(line, std::regex("tileset: "), "");
+                continue;
+            }
+            else if(line.find("dim X:") != std::string::npos){
+                tiles.dimX=std::stoi(std::regex_replace(line, std::regex("dim X: "), ""));
+                continue;
+                //std::cout<<tiles.dimX<<std::endl;
+            }
+            else if(line.find("dim Y:") != std::string::npos){
+                tiles.dimY=std::stoi(std::regex_replace(line, std::regex("dim Y: "), ""));
+                continue;
+            }
+            else if(line.find("tileMap:") != std::string::npos){
+                continue;
+            }
             std::cout<<line<<std::endl;
         }
     }
