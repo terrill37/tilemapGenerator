@@ -17,8 +17,9 @@ int main(){
     }
     
     mapGen.menuUpdate();
-    std::string tileset="../textures/";//+mapGen.GetTileSetName()+".png";
+    std::string tileset="../textures/";
     mapGen.LoadTiles(tileset);
+    mapGen.LoadMap();
 
     while(mapGen.IsRunning()){
         mapGen.Update();

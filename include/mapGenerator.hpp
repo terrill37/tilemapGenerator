@@ -17,7 +17,8 @@ class mapGenerator{
         void LateUpdate();
         void menuUpdate();
         void LoadTiles(std::string);
-        std::string GetTileSetName();
+        void LoadMap();
+        //std::string GetTileSetName();
         void Draw();
         void SaveMap();
         void StartUpMenu();
@@ -32,8 +33,9 @@ class mapGenerator{
 
         tileView tiles;
         menu StartMenu;
-        std::string tileset; //="../textures/tileset_alt.png";
-        
+        std::string tileset;
+        std::string mapsave;
+
         sf::Font font;
         
         menuItemAttr loadTiles;

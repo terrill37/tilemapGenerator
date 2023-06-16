@@ -180,7 +180,17 @@ void mapGenerator::SaveMap(){
     file << text;
 }
 
-std::string GetTileSetName(){
-    return "tileset_alt"; //loadTiles.userInput;
+void mapGenerator::LoadMap(){
+    mapsave="../generatedMaps/"+loadMap.userText.getString()+".txt";
+    std::ifstream savedFile(mapsave);
+    std::string line;
+    while(std::getline(savedFile,line)){
+        std::cout<<line<<std::endl;
+    }
+
 }
+
+//std::string GetTileSetName(){
+//    return "tileset_alt"; //loadTiles.userInput;
+//}
 
