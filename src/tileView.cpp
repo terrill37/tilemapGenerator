@@ -155,16 +155,21 @@ void tileView::setMap(std::pair<int,int> input){
 }
 
 void tileView::setMap(){
-    upperTileLocMap[{0,0}]=-1;
+    if(upperTileLocMap.empty()){upperTileLocMap[{0,0}]=-1;}
 }
 
 void tileView::setMap(std::vector<int> tileNums){
     for(int j=0; j<dimY; j++){
         for(int i=0; i<dimX; i++){
-            upperTileLocMap[{i,j}]=tileNums.front();
+            std::cout<<tileNums.front()<<" ";
+            int tN = tileNums.front();
             tileNums.erase(tileNums.begin());
+            if(tN==-1){continue;} //skip storing -1
+            upperTileLocMap[{i,j}]=tN;
         }
+        std::cout<<std::endl;
     }
+    //std::cout<<std::endl;
 }
 
 void tileView::retMap(){
@@ -197,7 +202,7 @@ void tileView::retMap(){
                 outputMap+="-1,";
             }
         }
-        outputMap.pop_back();
+        //outputMap.pop_back();
         outputMap+="\n";
     }
 }
