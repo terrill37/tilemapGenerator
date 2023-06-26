@@ -17,3 +17,8 @@ Producing first window
 
 
 The current development branch is based off tag v1.0
+Features to be added in next tag version
+- larger tilesets
+    - ability to load larger tilesets (64x64)
+- placement of larger tiles (64x64)
+
