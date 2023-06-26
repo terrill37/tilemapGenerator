@@ -38,14 +38,14 @@ void Window::Update(){
             //mousePos=sf::Mouse::getPosition(window);
             sf::Vector2f upPos  = window.mapPixelToCoords(mousePos,view_upper);
             sf::Vector2f lowPos = window.mapPixelToCoords(mousePos,view_lower); 
-            std::cout<<"mouse Y: "<<mousePos.y<<std::endl;
+            //std::cout<<"mouse Y: "<<mousePos.y<<std::endl;
             if(mousePos.y<512){
                 upX=(int)upPos.x/32;
                 upY=(int)upPos.y/32;
                 if(upPos.x<=0) upX-=1;
                 if(upPos.y<=0) upY-=1;
                 //std::cout<<upPos.x<<","<<upPos.y<<std::endl;
-                std::cout<<upX<<","<<upY<<std::endl;
+                //std::cout<<upX<<","<<upY<<std::endl;
                 if(!firstClick){firstClick=true;}
                 tileMapping();
             }
@@ -60,6 +60,12 @@ void Window::Update(){
 
 sf::View Window::GetDefaultView(){
     return window.getDefaultView();
+}
+
+void Window::resetMousePos(){
+    upX=0;
+    upY=0;
+    firstClick=false;
 }
 
 void Window::setView_upper(){

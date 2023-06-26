@@ -8,6 +8,10 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <filesystem>
+#include <ctime>
+#include <regex>
+#include <sstream>
 
 class mapGenerator{
     public:
@@ -15,6 +19,10 @@ class mapGenerator{
 
         void Update();
         void LateUpdate();
+        void menuUpdate();
+        void LoadTiles(std::string);
+        void LoadMap();
+        //std::string GetTileSetName();
         void Draw();
         void SaveMap();
         void StartUpMenu();
@@ -29,13 +37,18 @@ class mapGenerator{
 
         tileView tiles;
         menu StartMenu;
-        std::string tileset="../textures/tileset_alt.png";
-        
+        std::string tileset;
+        std::string mapsave;
+
         sf::Font font;
+        std::vector<int> mapTileNum;
+        
+        menuItemAttr loadTiles;
+        menuItemAttr loadMap;
+        menuItemAttr submit;
 
         //tileView tilesUpper;
         //sf::View view_upper;
-
 };
 
 #endif

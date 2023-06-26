@@ -16,6 +16,7 @@ struct menuItemAttr{
     std::pair<int,int> itemSize; //relative size of button
     std::string userInput=""; //will be updated in non-button class
     sf::Text userText;
+    bool isSubmission=false;
     bool active=false; //pointer to turn on and off
 };
 
@@ -25,8 +26,10 @@ class menu : public sf::Drawable, public sf::Transformable{
         menu();
         ~menu(); //destructor
         
-        void AddMenuItem(menuItemAttr);
+        void AddMenuItem(menuItemAttr*);
         void makeMenu();
+        void setExit();
+        bool isExit();
         void SetMenuDims(sf::Vector2u, sf::Vector2u);
         void SetView(sf::View);
         void Update(sf::Vector2i*,bool);
@@ -45,10 +48,11 @@ class menu : public sf::Drawable, public sf::Transformable{
         sf::Vector2u menuItemDims; //dimensions of the menu items in terms of x and y pixels
         sf::Vector2i* mousePos;
         bool click;
+        bool exit=false;
         char* userInput;
         sf::Font font;
 
-        std::vector<menuItemAttr> menuItems;
+        std::vector<menuItemAttr*> menuItems;
         sf::VertexArray m_menuVertices;
         virtual void draw(sf::RenderTarget&, sf::RenderStates) const; //make the menu the drawable
 

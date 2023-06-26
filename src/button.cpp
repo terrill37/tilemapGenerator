@@ -1,4 +1,5 @@
 #include "button.hpp"
+#include "menu.hpp"
 
 button::button(float ymax, float ymin, float xmax, float xmin, sf::Text* text, bool* isActive){
     top=ymax;
@@ -21,7 +22,6 @@ void button::Contains(sf::Vector2i* mousePos, bool mouseClick){
         hover=false;
         if(mouseClick){*active=false;}
     }
-    std::cout<<*active<<" in button\n";
 }
 
 void button::makeQuad(sf::Vertex* quad){
@@ -32,7 +32,6 @@ void button::makeQuad(sf::Vertex* quad){
 
     sf::Color buttonCol;
     if(hover || *active){
-        //std::cout<<"hovering\n";
         buttonCol=sf::Color::Red;
     }
     else{

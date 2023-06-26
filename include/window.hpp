@@ -20,6 +20,7 @@ class Window{
         void setView_upper();
         void setView_lower();
         void setView(sf::View);
+        void resetMousePos();
         void setViewPort_upper(sf::FloatRect);
         void setViewPort_lower(sf::FloatRect);
         sf::View getDefaultView();
