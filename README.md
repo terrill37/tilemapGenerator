@@ -14,4 +14,6 @@ Producing first window
 5. `make`
     - will produce the executable as listed in the `CMakeLists.txt` file
 6. `./tileMapGenerator` (name will probably change in upcoming update)
- 
+
+
+The current development branch is based off tag v1.0
