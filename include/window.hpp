@@ -16,12 +16,15 @@ class Window{
         float lowX,lowY;
 
         void Update();
+        sf::View GetDefaultView();
         void setView_upper();
         void setView_lower();
         void setView(sf::View);
+        void resetMousePos();
         void setViewPort_upper(sf::FloatRect);
         void setViewPort_lower(sf::FloatRect);
         sf::View getDefaultView();
+        sf::Vector2u GetSize();
         sf::Vector2f getUpperCenter();
         sf::Vector2f getLowerCenter();
         sf::Vector2f getViewSize();
@@ -36,6 +39,10 @@ class Window{
         void EndDraw();
         bool IsOpen() const;
         bool firstClick=false;
+        bool isMouseClicked;
+        sf::Vector2i mousePos;
+        sf::Vector2i* GetMousePos();
+        char* GetUserInput();
         
 
     private:
@@ -44,5 +51,6 @@ class Window{
         sf::View view_lower=sf::View(sf::FloatRect(0.f,0.f, window.getSize().x, window.getSize().y));
         std::pair<int,int> upCoords;
         std::pair<int,int> lowCoords;
+        char userInput;
 };
 #endif

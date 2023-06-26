@@ -5,6 +5,10 @@
 void Window::Update(){
     sf::Event event;
     while(window.pollEvent(event)){
+        mousePos=sf::Mouse::getPosition(window);
+        isMouseClicked=sf::Mouse::isButtonPressed(sf::Mouse::Left);
+        //userInput;
+        //std::cout<<"mousePos: "<<mousePos.x<<","<<mousePos.y<<std::endl;
         if(event.type==sf::Event::Closed){
             window.close();
         }
@@ -25,18 +29,23 @@ void Window::Update(){
                 view_upper=Move('D',view_upper);
         }    
         
+        if(event.type == sf::Event::TextEntered){
+            userInput=static_cast<char>(event.text.unicode);
+        }
+        else{userInput = '\0';}
+
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-            auto mousePos=sf::Mouse::getPosition(window);
+            //mousePos=sf::Mouse::getPosition(window);
             sf::Vector2f upPos  = window.mapPixelToCoords(mousePos,view_upper);
             sf::Vector2f lowPos = window.mapPixelToCoords(mousePos,view_lower); 
-            std::cout<<"mouse Y: "<<mousePos.y<<std::endl;
+            //std::cout<<"mouse Y: "<<mousePos.y<<std::endl;
             if(mousePos.y<512){
                 upX=(int)upPos.x/32;
                 upY=(int)upPos.y/32;
                 if(upPos.x<=0) upX-=1;
                 if(upPos.y<=0) upY-=1;
                 //std::cout<<upPos.x<<","<<upPos.y<<std::endl;
-                std::cout<<upX<<","<<upY<<std::endl;
+                //std::cout<<upX<<","<<upY<<std::endl;
                 if(!firstClick){firstClick=true;}
                 tileMapping();
             }
@@ -47,6 +56,16 @@ void Window::Update(){
             }
         }   
     }
+}
+
+sf::View Window::GetDefaultView(){
+    return window.getDefaultView();
+}
+
+void Window::resetMousePos(){
+    upX=0;
+    upY=0;
+    firstClick=false;
 }
 
 void Window::setView_upper(){
@@ -62,6 +81,10 @@ void Window::setView(sf::View v){
     //std::cout<<v.getCenter().x<<","<<v.getCenter().y<<std::endl;
     //std::cout<<"set view custom\n";
     window.setView(v);
+}
+
+sf::Vector2u Window::GetSize(){
+    return window.getSize();
 }
 
 sf::Vector2f Window::getUpperCenter(){
@@ -208,4 +231,14 @@ void Window::EndDraw(){
 
 bool Window::IsOpen() const{
     return window.isOpen();
+}
+
+sf::Vector2i* Window::GetMousePos(){
+    auto *ptr = &mousePos;
+    return ptr;
+}
+
+char* Window::GetUserInput(){
+    auto *ptr = &userInput;
+    return ptr;
 }

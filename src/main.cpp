@@ -9,8 +9,18 @@
 #include "mapGenerator.hpp"
 
 int main(){
-    std::cout<<"in main\n";
     mapGenerator mapGen;
+    while(mapGen.IsMenuRunning("startup") && mapGen.IsRunning()){
+        mapGen.menuUpdate();
+        //mapGen.LateUpdate();
+        mapGen.DrawMenu();
+    }
+    
+    mapGen.menuUpdate();
+    std::string tileset="../textures/";
+    mapGen.LoadMap();
+    mapGen.LoadTiles(tileset);
+
     while(mapGen.IsRunning()){
         mapGen.Update();
         mapGen.LateUpdate();
