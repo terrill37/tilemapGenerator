@@ -46,8 +46,7 @@ void mapGenerator::Draw(){
     tiles.isUpper(true);
     tiles.setUpperTextures(sf::Vector2i(32,32)); //upper texture size
     window.Draw(tiles);
-    window.HighlightBin(32);
-    //window.HighlightBin(64); //will need to adjust
+    window.HighlightBin(32,true);
 
     window.setViewPort_lower(sf::FloatRect(0.f,512/576.f,1.f,1.f));
     window.setView_lower();
@@ -56,7 +55,7 @@ void mapGenerator::Draw(){
     
     tiles.selectTile(window.retLowCoords());
     
-    window.HighlightBin(64);
+    window.HighlightBin(64,false);
 
     window.EndDraw();
 }

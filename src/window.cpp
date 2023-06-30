@@ -35,23 +35,19 @@ void Window::Update(){
         else{userInput = '\0';}
 
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-            //mousePos=sf::Mouse::getPosition(window);
             sf::Vector2f upPos  = window.mapPixelToCoords(mousePos,view_upper);
             sf::Vector2f lowPos = window.mapPixelToCoords(mousePos,view_lower); 
-            //std::cout<<"mouse Y: "<<mousePos.y<<std::endl;
             if(mousePos.y<512){
                 upX=(int)upPos.x/32;
                 upY=(int)upPos.y/32;
                 if(upPos.x<=0) upX-=1;
                 if(upPos.y<=0) upY-=1;
-                //std::cout<<upPos.x<<","<<upPos.y<<std::endl;
-                //std::cout<<upX<<","<<upY<<std::endl;
                 if(!firstClick){firstClick=true;}
                 tileMapping();
             }
             else if(mousePos.y>512){
-                lowX=(int)lowPos.x/64;
-                lowY=(int)lowPos.y/64;
+                lowX=(int)lowPos.x/128; //FIXME for different tile sizes
+                lowY=(int)lowPos.y/128;
                 std::cout<<lowX<<","<<lowY<<std::endl;
             }
         }   
@@ -178,38 +174,43 @@ std::pair<int,int> Window::retLowCoords(){
     return lowCoords;
 }
 
-void Window::HighlightBin(int mult){
-    int xpos,ypos,width;
+void Window::HighlightBin(int mult, bool isUpper){
+    //bool isUpper to say if in upper view or not
+    //int mult to decide scaling of the highlighted bin size
+
+    int xpos,ypos,width,scale;
     sf::View origin;
 
-    if(mult==32){
+    if(isUpper){
         origin=view_upper;
         origin.move(-512,-256);
         xpos=upX;
         ypos=upY;
         width=2;
+        scale=1;
     }
-    else if(mult==64){
+    else{
         origin=view_lower;
         origin.move(-512,-32);
         xpos=lowX;
         ypos=lowY;
         width=4;
+        scale=2;
     }
     
-    sf::RectangleShape top(sf::Vector2f(mult,width));
+    sf::RectangleShape top(sf::Vector2f(scale*mult,width));
     top.setFillColor(sf::Color::Green);
-    sf::RectangleShape bottom(sf::Vector2f(mult,width));
+    sf::RectangleShape bottom(sf::Vector2f(scale*mult,width));
     bottom.setFillColor(sf::Color::Green);
-    sf::RectangleShape left(sf::Vector2f(width,mult));
+    sf::RectangleShape left(sf::Vector2f(width,scale*mult));
     left.setFillColor(sf::Color::Green);
-    sf::RectangleShape right(sf::Vector2f(width,mult));
+    sf::RectangleShape right(sf::Vector2f(width,scale*mult));
     right.setFillColor(sf::Color::Green);
     
-    top.setPosition(mult*xpos,mult*ypos-width/2);
-    bottom.setPosition(mult*xpos,mult*ypos+mult-width/2);
-    left.setPosition(mult*xpos-width/2,mult*ypos);
-    right.setPosition(mult*xpos+mult-width/2,mult*ypos);
+    top.setPosition(scale*mult*xpos,scale*mult*ypos-width/2);
+    bottom.setPosition(scale*mult*xpos,scale*mult*ypos+scale*mult-width/2);
+    left.setPosition(scale*mult*xpos-width/2,scale*mult*ypos);
+    right.setPosition(scale*mult*xpos+scale*mult-width/2,scale*mult*ypos);
 
     Draw(top);
     Draw(bottom);

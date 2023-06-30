@@ -33,7 +33,7 @@ class Window{
         void tileMapping();
         std::pair<int,int> retUpCoords();
         std::pair<int,int> retLowCoords();
-        void HighlightBin(int);
+        void HighlightBin(int,bool);
         void BeginDraw();
         void Draw(const sf::Drawable& drawable);
         void EndDraw();
