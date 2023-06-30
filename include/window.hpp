@@ -48,7 +48,7 @@ class Window{
     private:
         sf::RenderWindow window;
         sf::View view_upper=sf::View(sf::FloatRect(0.f,0.f, window.getSize().x, 16*window.getSize().y/18));
-        sf::View view_lower=sf::View(sf::FloatRect(0.f,0.f, window.getSize().x, window.getSize().y));
+        sf::View view_lower=sf::View(sf::FloatRect(0.f,0.f, window.getSize().x*2, window.getSize().y*2)); //The lower view needs adjusted when switching to different tile sizes
         std::pair<int,int> upCoords;
         std::pair<int,int> lowCoords;
         char userInput;
