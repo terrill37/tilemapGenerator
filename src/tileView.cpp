@@ -34,8 +34,6 @@ bool tileView::ReadInTiles(const std::string& tileset, sf::Vector2u tileSize){
         for(unsigned int j=0; j<tileSetDim.y; j++){
             //loop through y direction of tileset
             tilePositions[k]=sf::Vector2u(i,j);
-            //std::cout<<"i,j: "<<i<<","<<j<<std::endl;
-            //std::cout<<"k: "<<k<<std::endl;
             k++;
         }
     }
@@ -164,11 +162,9 @@ void tileView::retMap(){
         for(int i=minX; i<maxX+1; i++){
             //std::cout<<i<<","<<j<<std::endl;
             if(upperTileLocMap.count({i,j})==1){
-                //std::cout<<"found key\n";
                 outputMap+=std::to_string(upperTileLocMap.at({i,j}))+",";
             }
             else{
-                //std::cout<<"no key\n";
                 outputMap+="-1,";
             }
         }

@@ -44,9 +44,9 @@ void mapGenerator::Draw(){
     window.drawGrid(8,16);
     if(window.firstClick){tiles.setMap(window.retUpCoords());}
     tiles.isUpper(true);
-    tiles.setUpperTextures(sf::Vector2i(32,32)); //upper texture size
+    tiles.setUpperTextures(sf::Vector2i(64,64)); //FIXME upper texture size
     window.Draw(tiles);
-    window.HighlightBin(32,true);
+    window.HighlightBin(64,true); //FIXME for changing tile size
 
     window.setViewPort_lower(sf::FloatRect(0.f,512/576.f,1.f,1.f));
     window.setView_lower();

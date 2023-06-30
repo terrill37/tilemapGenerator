@@ -38,8 +38,8 @@ void Window::Update(){
             sf::Vector2f upPos  = window.mapPixelToCoords(mousePos,view_upper);
             sf::Vector2f lowPos = window.mapPixelToCoords(mousePos,view_lower); 
             if(mousePos.y<512){
-                upX=(int)upPos.x/32;
-                upY=(int)upPos.y/32;
+                upX=(int)upPos.x/64; //FIXME for different tile sizes
+                upY=(int)upPos.y/64;
                 if(upPos.x<=0) upX-=1;
                 if(upPos.y<=0) upY-=1;
                 if(!firstClick){firstClick=true;}
@@ -140,12 +140,7 @@ void Window::drawGrid(int rows, int cols){
     Draw(grid);
 }
 
-sf::View Window::Move(char dir, sf::View view){
-    //std::cout<<"moving "<<dir<<std::endl;
-    //sf::View view=window.getDefaultView();
-    //std::cout<<"move: "<<view.getCenter().x<<","<<view.getCenter().y<<std::endl;
-    //view=window.getView();
-    
+sf::View Window::Move(char dir, sf::View view){   
     if(dir=='L') view.move(32,0);
     if(dir=='R') view.move(-32,0);
     if(dir=='U') view.move(0,32);
