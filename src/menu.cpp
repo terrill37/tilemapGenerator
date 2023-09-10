@@ -46,9 +46,12 @@ void menu::makeMenu(){
     for(auto item : menuItems){ 
         sf::Vertex* quad = &m_menuVertices[4*i];
         
-        int xShift=0;
-        if(item->relLoc.first<menuDims.x/2){
-            xShift = (menuDims.x-item->relLoc.first-1)*menuItemDims.x/2;
+        float xShift=0;
+        if(item->relLoc.first<menuDims.x/2 && evenX){
+            xShift = ((menuDims.x/2-item->relLoc.first)-1./2)*menuItemDims.x;
+        }
+        else if(item->relLoc.first<menuDims.x/2 && !evenX){
+            xShift = ((menuDims.x/2-item->relLoc.first)-1./2)*menuItemDims.x;
         }
         else if(item->relLoc.first>menuDims.x/2 && !evenX){
             xShift -= (menuDims.x-item->relLoc.first+1)*menuItemDims.x/2;
@@ -57,15 +60,23 @@ void menu::makeMenu(){
             xShift -= (menuDims.x-item->relLoc.first)*menuItemDims.x/2;
         }
         
-        int yShift=0;
-        if(item->relLoc.second<menuDims.y/2){
-            yShift = (menuDims.y-item->relLoc.second-1)*menuItemDims.y/2;
+        float yShift=0;
+        std::cout<<"initial yShift: "<<yShift<<std::endl;
+        if(item->relLoc.second<menuDims.y/2 && evenY){
+            //shift up
+            yShift = ((menuDims.y/2-item->relLoc.second)-1./2)*menuItemDims.y;
+        }
+        else if(item->relLoc.second<menuDims.y/2 && !evenY){
+            //shift up
+            yShift = ((menuDims.y/2-item->relLoc.second)-1./2)*menuItemDims.y;
         }
         else if(item->relLoc.second>menuDims.y/2 && !evenY){
-            yShift -= (menuDims.y-item->relLoc.second+1)*menuItemDims.y/2;
+            //shift down with odd number of items
+            //yShift -= (menuDims.y-item->relLoc.second+1)*menuItemDims.y/2;
         }
         else if(item->relLoc.second>=menuDims.y/2 && evenY){
-            yShift -= (menuDims.y-item->relLoc.second)*menuItemDims.y/2;
+            //shift down with even number of items
+            yShift = -(abs(menuDims.y/2-item->relLoc.second)+1./2)*menuItemDims.y;
         }
         
         float top       = (menuSize.y-menuItemDims.y)/2-yShift;
@@ -73,6 +84,10 @@ void menu::makeMenu(){
         float left      = (menuSize.x-menuItemDims.x)/2-xShift;
         float right     = (menuSize.x+menuItemDims.x)/2-xShift;
         
+        std::cout<<"index: "<<item->relLoc.second<<" len: "<<menuDims.y<<" yshift: "<<yShift<<std::endl;
+        //<<" top: "<<top<<" bottom: "<<bottom<<std::endl;
+        //std::cout<<"xshift: "<<xShift<<std::endl;
+
         if(!item->readable){
             button b(top,bottom,right,left,&item->itemText, &item->active);
             b.Contains(mousePos,click); //get mouse position
@@ -90,6 +105,7 @@ void menu::makeMenu(){
         texts.push_back(&item->itemText);
         i++;
     }
+    std::cout<<std::endl;
 }
 
 void menu::setExit(){

@@ -44,8 +44,11 @@ class mapGenerator{
         std::vector<int> mapTileNum;
         
         menuItemAttr loadTiles;
+        menuItemAttr loadTileSize;
         menuItemAttr loadMap;
         menuItemAttr submit;
+        menuItemAttr test; //FIXME
+        menuItemAttr test2;
 
         //tileView tilesUpper;
         //sf::View view_upper;

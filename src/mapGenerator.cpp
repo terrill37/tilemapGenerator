@@ -91,15 +91,29 @@ bool mapGenerator::IsMenuRunning(std::string menuName="startup"){
 }
 
 void mapGenerator::StartUpMenu(){
-    StartMenu.SetMenuDims(sf::Vector2u(1,3), sf::Vector2u(128,64));
+    StartMenu.SetMenuDims(sf::Vector2u(1,6), sf::Vector2u(128,64));
     //generate startup menu attributes
     submit.readable=false;
     submit.itemText.setString("Submit");
     submit.itemText.setCharacterSize(16);
-    submit.relLoc={0,2};
+    submit.relLoc={0,3};
     submit.isSubmission=true;
     submit.itemSize={128,64};
     
+    test.readable=false;
+    test.itemText.setString("test");
+    test.itemText.setCharacterSize(16);
+    test.relLoc={0,4};
+    test.isSubmission=true;
+    test.itemSize={128,64};
+    
+    test2.readable=false;
+    test2.itemText.setString("test");
+    test2.itemText.setCharacterSize(16);
+    test2.relLoc={0,5};
+    test2.isSubmission=true;
+    test2.itemSize={128,64};
+
     //menuItemAttr loadMap;
     loadMap.readable=true;
     loadMap.itemText.setString("Load Map Save: ");
@@ -115,9 +129,18 @@ void mapGenerator::StartUpMenu(){
     loadTiles.relLoc={0,1};
     loadTiles.itemSize={128,64};
 
-    StartMenu.AddMenuItem(&submit);
+    loadTileSize.readable=true;
+    loadTileSize.itemText.setString("Load Tiles Size: "); // in Tile Set: ");
+    loadTileSize.itemText.setCharacterSize(8);
+    loadTileSize.relLoc={0,2};
+    loadTileSize.itemSize={128,64};
+
     StartMenu.AddMenuItem(&loadMap);
+    StartMenu.AddMenuItem(&loadTileSize);
     StartMenu.AddMenuItem(&loadTiles);
+    StartMenu.AddMenuItem(&submit);
+    //StartMenu.AddMenuItem(&test);
+    //StartMenu.AddMenuItem(&test2);
 }
 
 void mapGenerator::SaveMap(){
