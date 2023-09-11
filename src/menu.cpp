@@ -51,13 +51,13 @@ void menu::makeMenu(){
             xShift = ((menuDims.x/2-item->relLoc.first)-1./2)*menuItemDims.x;
         }
         else if(item->relLoc.first<menuDims.x/2 && !evenX){
-            xShift = ((menuDims.x/2-item->relLoc.first)-1./2)*menuItemDims.x;
+            xShift = (menuDims.x/2-item->relLoc.first)*menuItemDims.x;
         }
         else if(item->relLoc.first>menuDims.x/2 && !evenX){
-            xShift -= (menuDims.x-item->relLoc.first+1)*menuItemDims.x/2;
+            xShift = -1.*(abs(menuDims.x-item->relLoc.first))*menuItemDims.x;
         }
         else if(item->relLoc.first>=menuDims.x/2 && evenX){
-            xShift -= (menuDims.x-item->relLoc.first)*menuItemDims.x/2;
+            xShift = -(abs(menuDims.x-item->relLoc.first)+1./2)*menuItemDims.x;
         }
         
         float yShift=0;
@@ -68,11 +68,11 @@ void menu::makeMenu(){
         }
         else if(item->relLoc.second<menuDims.y/2 && !evenY){
             //shift up
-            yShift = ((menuDims.y/2-item->relLoc.second)-1./2)*menuItemDims.y;
+            yShift = (menuDims.y/2-item->relLoc.second)*menuItemDims.y;
         }
         else if(item->relLoc.second>menuDims.y/2 && !evenY){
             //shift down with odd number of items
-            //yShift -= (menuDims.y-item->relLoc.second+1)*menuItemDims.y/2;
+            yShift = -1.* (abs(menuDims.y/2-item->relLoc.second))*menuItemDims.y;
         }
         else if(item->relLoc.second>=menuDims.y/2 && evenY){
             //shift down with even number of items
@@ -85,9 +85,6 @@ void menu::makeMenu(){
         float right     = (menuSize.x+menuItemDims.x)/2-xShift;
         
         std::cout<<"index: "<<item->relLoc.second<<" len: "<<menuDims.y<<" yshift: "<<yShift<<std::endl;
-        //<<" top: "<<top<<" bottom: "<<bottom<<std::endl;
-        //std::cout<<"xshift: "<<xShift<<std::endl;
-
         if(!item->readable){
             button b(top,bottom,right,left,&item->itemText, &item->active);
             b.Contains(mousePos,click); //get mouse position

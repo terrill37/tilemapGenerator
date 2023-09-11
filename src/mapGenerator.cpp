@@ -91,7 +91,7 @@ bool mapGenerator::IsMenuRunning(std::string menuName="startup"){
 }
 
 void mapGenerator::StartUpMenu(){
-    StartMenu.SetMenuDims(sf::Vector2u(1,6), sf::Vector2u(128,64));
+    StartMenu.SetMenuDims(sf::Vector2u(1,4), sf::Vector2u(128,64));
     //generate startup menu attributes
     submit.readable=false;
     submit.itemText.setString("Submit");
